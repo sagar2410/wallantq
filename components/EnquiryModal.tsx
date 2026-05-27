@@ -149,9 +149,16 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
               <Image
                 src="/assets/logo/icon.png"
                 alt="Wallantq Icon"
-                width={80}
-                height={152}
+                width={70}
+                height={133}
                 style={{ objectFit: "contain" }}
+              />
+              <Image
+                src="/assets/logo/wordmark-white.png"
+                alt="Wallantq Wordmark"
+                width={120}
+                height={30}
+                style={{ objectFit: "contain", opacity: 0.85 }}
               />
             </div>
           )}
@@ -234,12 +241,10 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
               background: "var(--bg-2)",
             }}
           >
-            {productImage ? (
+            {productImage && (
               <div style={{ width: 48, height: 48, flexShrink: 0, position: "relative", overflow: "hidden" }}>
                 <Image src={productImage} alt="" fill style={{ objectFit: "cover" }} />
               </div>
-            ) : (
-              <div style={{ width: 48, height: 48, flexShrink: 0, background: "var(--stone)" }} />
             )}
             <div>
               <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--fg-2)", marginBottom: 3 }}>
