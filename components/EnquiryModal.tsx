@@ -147,7 +147,7 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
               }}
             >
               <Image
-                src="/assets/logo/icon.png"
+                src="/assets/logo/icon-white.png"
                 alt="Wallantq Icon"
                 width={70}
                 height={133}
