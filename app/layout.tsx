@@ -33,8 +33,24 @@ export const metadata: Metadata = {
     "Wallantq Gallery — premium 10-layer MDF handcrafted wall art made in Surat, India. Each piece is hand-painted with protective PU coat. Fully customizable. Enquire for price and availability.",
   keywords: ["10-layer MDF wall art", "handcrafted wall art", "mandala wall art", "premium wall art India", "MDF wall art Surat", "custom wall art"],
   icons: {
-    icon: "/assets/logo/icon.png?v=3",
-    apple: "/assets/logo/icon.png?v=3",
+    icon: "/assets/logo/icon-black.png",
+    apple: "/assets/logo/icon-black.png",
+  },
+  openGraph: {
+    title: "Wallantq Gallery — Premium 10-Layer MDF Handcrafted Wall Art",
+    description: "Premium 10-layer MDF handcrafted wall art made in Surat, India. Curated heirloom wall art.",
+    images: [
+      {
+        url: "/assets/logo/icon-square.jpg",
+        width: 500,
+        height: 500,
+        alt: "Wallantq Gallery Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    images: ["/assets/logo/icon-square.jpg"],
   },
 };
 
