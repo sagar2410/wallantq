@@ -148,17 +148,10 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
             >
               <Image
                 src="/assets/logo/icon-white.png"
-                alt="Wallantq Icon"
-                width={70}
-                height={133}
+                alt="Wallantq Logo"
+                width={180}
+                height={126}
                 style={{ objectFit: "contain" }}
-              />
-              <Image
-                src="/assets/logo/wordmark-white.png"
-                alt="Wallantq Wordmark"
-                width={120}
-                height={30}
-                style={{ objectFit: "contain", opacity: 0.85 }}
               />
             </div>
           )}
