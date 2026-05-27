@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Wallantq — Premium Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  const TWEAKS = /*EDITMODE-BEGIN*/{
+    "palette": "stone",
+    "displayFont": "Playfair Display",
+    "bodyFont": "Inter",
+    "gridDensity": "editorial",
+    "ctaStyle": "underline"
+  }/*EDITMODE-END*/;
+</script>
+<style>
+  :root {
+    --ivory: #f5f1ea;
+    --ivory-2: #ede7dc;
+    --cream: #faf7f1;
+    --ink: #1a1815;
+    --ink-2: #2b2824;
+    --muted: #6b6459;
+    --stone: #c9c1b2;
+    --line: #d9d2c4;
+    --brass: #a8864a;
+    --brass-deep: #8a6b36;
+    --accent: var(--brass);
+
+    --bg: var(--ivory);
+    --bg-2: var(--cream);
+    --fg: var(--ink);
+    --fg-2: var(--muted);
+
+    --serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+    --maxw: 1440px;
+    --pad: clamp(24px, 4vw, 72px);
+  }
+
+  /* Palette variants */
+  body[data-palette="ivory"] { --bg:#f5f1ea; --bg-2:#faf7f1; --fg:#1a1815; --fg-2:#6b6459; --line:#d9d2c4; --accent:#a8864a; --stone:#c9c1b2; }
+  body[data-palette="stone"] { --bg:#e8e2d3; --bg-2:#f1ecdf; --fg:#24201a; --fg-2:#6d6658; --line:#cdc4b1; --accent:#7a5c2e; --stone:#bdb29c; }
+  body[data-palette="mono"]  { --bg:#f4f4f2; --bg-2:#fbfbfa; --fg:#0c0c0a; --fg-2:#5f5f5c; --line:#d6d6d2; --accent:#0c0c0a; --stone:#c5c5c1; }
+  body[data-palette="forest"]{ --bg:#efece3; --bg-2:#f7f4eb; --fg:#1c211b; --fg-2:#5e6558; --line:#cdd1c4; --accent:#3e5136; --stone:#c3c7b6; }
+  body[data-palette="oxblood"]{--bg:#f3ede3; --bg-2:#faf5ec; --fg:#1e1614; --fg-2:#6b5c57; --line:#d8cdc0; --accent:#6b1f27; --stone:#c9b9ac; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.005em;
+  }
+
+  .serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+  .mono  { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); }
+
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .shell { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ---------- Top chrome ---------- */
+  .topbar {
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: saturate(140%);
+  }
+  .topbar-inner {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 24px;
+    padding: 18px 0;
+  }
+  .topbar-left, .topbar-right { display: flex; align-items: center; gap: 28px; }
+  .topbar-right { justify-content: flex-end; }
+  .brand {
+    font-family: var(--serif);
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    font-weight: 500;
+  }
+  .brand sup { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; color: var(--fg-2); vertical-align: super; margin-left: 4px; }
+  .nav-link {
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg);
+    padding: 6px 0; position: relative; cursor: pointer;
+  }
+  .nav-link:hover::after, .nav-link.active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: var(--fg);
+  }
+  .icon-btn {
+    width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid transparent; border-radius: 999px; cursor: pointer;
+  }
+  .icon-btn:hover { border-color: var(--line); }
+
+  .marquee {
+    background: var(--fg); color: var(--bg);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 9px 0; overflow: hidden;
+  }
+  .marquee-track { white-space: nowrap; animation: slide 38s linear infinite; }
+  .marquee-track span { padding: 0 28px; opacity: 0.85; }
+  .marquee-track span + span::before { content: "✦"; margin-right: 28px; color: var(--accent); opacity: 0.8; }
+  @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- Placeholder imagery ---------- */
+  .ph {
+    position: relative; overflow: hidden;
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.045) 0 2px, transparent 2px 14px),
+      linear-gradient(180deg, var(--stone), color-mix(in srgb, var(--stone) 78%, var(--ink) 12%));
+    color: var(--fg);
+  }
+  .ph::before {
+    content: attr(data-label);
+    position: absolute; left: 14px; bottom: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.92); mix-blend-mode: normal;
+    background: rgba(0,0,0,0.35); padding: 5px 9px;
+    backdrop-filter: blur(4px);
+  }
+  .ph.light::before { color: rgba(0,0,0,0.7); background: rgba(255,255,255,0.6); }
+  .ph[data-kind="video"]::after {
+    content: "▶"; position: absolute; inset: 0; display: grid; place-items: center;
+    font-size: 28px; color: rgba(255,255,255,0.85); letter-spacing: -0.1em;
+  }
+
+  /* ---------- Pages ---------- */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== HOME ===== */
+  .hero {
+    display: grid; grid-template-columns: 1.15fr 1fr;
+    border-bottom: 1px solid var(--line);
+    min-height: 78vh;
+  }
+  .hero-copy {
+    padding: clamp(40px, 7vw, 110px) var(--pad);
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: 40px;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(52px, 7.2vw, 118px);
+    line-height: 0.94; letter-spacing: -0.02em;
+    margin: 24px 0 0;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .hero-sub { max-width: 420px; color: var(--fg-2); font-size: 15px; line-height: 1.6; }
+  .hero-meta { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .hero-meta div { max-width: 180px; }
+  .hero-meta strong { font-family: var(--serif); font-size: 22px; font-weight: 500; display: block; }
+  .hero-img { position: relative; min-height: 78vh; border-left: 1px solid var(--line); }
+  .hero-img .ph { position: absolute; inset: 0; }
+  .hero-index {
+    position: absolute; top: 24px; right: 24px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #fff; background: rgba(0,0,0,0.4); padding: 6px 10px; backdrop-filter: blur(6px);
+    z-index: 2;
+  }
+  .hero-scroll {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--fg-2);
+  }
+  .hero-scroll .line { width: 56px; height: 1px; background: var(--fg-2); }
+
+  /* Section header */
+  .section { padding: clamp(72px, 10vw, 140px) 0; border-bottom: 1px solid var(--line); }
+  .section-head {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end;
+    margin-bottom: clamp(40px, 6vw, 80px);
+  }
+  .section-kicker { display: flex; align-items: center; gap: 14px; }
+  .section-kicker .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .section-head h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(36px, 4.6vw, 68px); line-height: 1.02; letter-spacing: -0.015em;
+    margin: 10px 0 0;
+  }
+  .section-head h2 em { font-style: italic; color: var(--accent); }
+  .section-head p { color: var(--fg-2); max-width: 440px; margin: 0; }
+
+  /* Collection grid (home featured) */
+  .grid-home {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 36px 28px;
+  }
+  .pcard { cursor: pointer; }
+  .pcard .ph { aspect-ratio: 4/5; }
+  .pcard-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; gap: 12px; }
+  .pcard-title { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.15; }
+  .pcard-sub { color: var(--fg-2); font-size: 12px; margin-top: 2px; letter-spacing: 0.02em; }
+  .pcard-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--fg-2); }
+
+  .grid-home .pcard:nth-child(1) { grid-column: 1 / span 5; }
+  .grid-home .pcard:nth-child(1) .ph { aspect-ratio: 4/5.4; }
+  .grid-home .pcard:nth-child(2) { grid-column: 6 / span 4; margin-top: 80px; }
+  .grid-home .pcard:nth-child(3) { grid-column: 10 / span 3; margin-top: 20px; }
+  .grid-home .pcard:nth-child(4) { grid-column: 2 / span 4; margin-top: 40px; }
+  .grid-home .pcard:nth-child(4) .ph { aspect-ratio: 4/4.4; }
+  .grid-home .pcard:nth-child(5) { grid-column: 7 / span 5; margin-top: 0; }
+  .grid-home .pcard:nth-child(5) .ph { aspect-ratio: 4/5.2; }
+
+  /* Story split */
+  .split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .split > div { padding: clamp(60px, 8vw, 120px) var(--pad); }
+  .split .media { padding: 0; position: relative; min-height: 520px; border-right: 1px solid var(--line); }
+  .split .media .ph { position: absolute; inset: 0; }
+  .split h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(32px, 3.6vw, 54px); line-height: 1.05; letter-spacing: -0.012em;
+    margin: 16px 0 24px;
+  }
+  .split p { color: var(--fg-2); max-width: 480px; margin: 0 0 16px; }
+  .signature {
+    margin-top: 40px; display: flex; align-items: center; gap: 16px;
+    font-family: var(--serif); font-style: italic; font-size: 22px;
+  }
+  .signature .sig-line { width: 40px; height: 1px; background: var(--fg); }
+
+  /* Values strip */
+  .values {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .values > div {
+    padding: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 40px);
+    border-right: 1px solid var(--line);
+  }
+  .values > div:last-child { border-right: 0; }
+  .values h4 {
+    font-family: var(--serif); font-weight: 500; font-size: 26px; margin: 20px 0 8px;
+  }
+  .values p { margin: 0; color: var(--fg-2); font-size: 14px; }
+  .values .num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--accent); }
+
+  /* Editorial quote */
+  .pullquote {
+    padding: clamp(80px, 12vw, 160px) var(--pad);
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-2);
+  }
+  .pullquote blockquote {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(32px, 4vw, 58px); line-height: 1.18; letter-spacing: -0.01em;
+    max-width: 1000px; margin: 0 auto 32px;
+  }
+  .pullquote cite { font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg-2); }
+
+  /* CTA band */
+  .ctaband {
+    padding: clamp(72px, 10vw, 140px) var(--pad);
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center;
+  }
+  .ctaband h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 4vw, 58px); line-height: 1.05; margin: 10px 0 0; letter-spacing: -0.012em; }
+  .ctaband p { color: var(--fg-2); max-width: 440px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 18px 26px; border: 1px solid var(--fg); background: var(--fg); color: var(--bg);
+    cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+  }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.ghost { background: transparent; color: var(--fg); }
+  .btn.ghost:hover { background: var(--fg); color: var(--bg); }
+  .btn .arrow { display: inline-block; transition: transform .2s; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  body[data-cta="underline"] .btn-underline { display: inline-flex; }
+  .btn-underline {
+    align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    padding-bottom: 4px; border-bottom: 1px solid var(--fg); cursor: pointer;
+  }
+  .btn-underline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Footer */
+  footer {
+    padding: 80px var(--pad) 40px;
+    background: var(--fg); color: var(--bg);
+  }
+  footer a { color: var(--bg); }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+  .foot-brand { font-family: var(--serif); font-size: 48px; font-weight: 400; letter-spacing: 0.01em; }
+  .foot-brand + p { color: color-mix(in srgb, var(--bg) 65%, transparent); max-width: 340px; margin-top: 12px; font-size: 14px; }
+  .foot-col h5 { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: color-mix(in srgb, var(--bg) 55%, transparent); margin: 6px 0 18px; font-weight: 500; }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .foot-col a { font-family: var(--serif); font-size: 20px; }
+  .foot-col a:hover { color: var(--accent); }
+  .foot-bottom {
+    margin-top: 72px; padding-top: 24px;
+    border-top: 1px solid color-mix(in srgb, var(--bg) 20%, transparent);
+    display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--bg) 60%, transparent);
+  }
+
+  /* ===== COLLECTION ===== */
+  .col-head {
+    padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 60px);
+    border-bottom: 1px solid var(--line);
+  }
+  .col-head h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(52px, 7vw, 112px); line-height: 0.96; letter-spacing: -0.02em;
+    margin: 20px 0 28px;
+  }
+  .col-head h1 em { font-style: italic; color: var(--accent); }
+  .col-sub { display: flex; justify-content: space-between; align-items: end; gap: 40px; }
+  .col-sub p { max-width: 520px; color: var(--fg-2); margin: 0; }
+
+  .filter-bar {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 72px; background: var(--bg); z-index: 20;
+  }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 9px 16px; border: 1px solid var(--line); cursor: pointer; border-radius: 999px;
+    color: var(--fg-2); background: transparent;
+  }
+  .chip.active, .chip:hover { color: var(--fg); border-color: var(--fg); }
+  .chip.active { background: var(--fg); color: var(--bg); }
+  .view-toggle { display: flex; gap: 4px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); }
+  .view-toggle span { padding: 6px 10px; cursor: pointer; }
+  .view-toggle span.active { color: var(--fg); border-bottom: 1px solid var(--fg); }
+
+  .col-grid {
+    padding: clamp(48px, 6vw, 80px) 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(32px, 4vw, 60px) clamp(24px, 3vw, 40px);
+  }
+  body[data-density="dense"] .col-grid { grid-template-columns: repeat(4, 1fr); gap: 28px 20px; }
+  body[data-density="editorial"] .col-grid { grid-template-columns: repeat(3, 1fr); }
+  body[data-density="spacious"] .col-grid { grid-template-columns: repeat(2, 1fr); gap: 80px 60px; }
+
+  .col-grid .pcard .ph { aspect-ratio: 4/5; }
+  .col-grid .pcard:hover .ph { filter: brightness(0.96); }
+
+  /* ===== PRODUCT ===== */
+  .prod-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh;
+  }
+  .prod-gallery {
+    padding: 40px var(--pad) 80px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 16px;
+    background: var(--bg-2);
+  }
+  .prod-gallery .main-img { position: relative; aspect-ratio: 4/5; }
+  .prod-gallery .main-img .ph { position: absolute; inset: 0; }
+  .prod-gallery .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .prod-gallery .thumbs .ph { aspect-ratio: 1; cursor: pointer; }
+  .prod-gallery .thumbs .ph.active { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+  .prod-info {
+    padding: clamp(48px, 6vw, 96px) clamp(40px, 5vw, 88px);
+    display: flex; flex-direction: column; gap: 32px;
+    max-width: 620px;
+  }
+  .breadcrumb { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-2); }
+  .breadcrumb span.sep { margin: 0 10px; color: var(--line); }
+  .prod-title { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 5vw, 72px); line-height: 1; letter-spacing: -0.015em; margin: 0; }
+  .prod-title em { font-style: italic; color: var(--accent); }
+  .prod-deck { color: var(--fg-2); font-size: 16px; line-height: 1.6; max-width: 500px; }
+
+  .prod-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .prod-specs > div { padding: 18px 0; border-right: 1px solid var(--line); padding-right: 20px; }
+  .prod-specs > div:nth-child(2n) { border-right: 0; padding-left: 20px; }
+  .prod-specs > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .prod-specs .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-2); }
+  .prod-specs .v { font-family: var(--serif); font-size: 22px; font-weight: 500; margin-top: 6px; }
+
+  .enquire {
+    display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center;
+    margin-top: 8px;
+  }
+  .enquire .price-note { color: var(--fg-2); font-size: 13px; }
+  .enquire .price-note strong { display: block; color: var(--fg); font-family: var(--serif); font-size: 26px; font-weight: 500; }
+
+  .prod-extras { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+  .prod-extras > div { padding: 20px 0; border-right: 1px solid var(--line); padding-right: 16px; }
+  .prod-extras > div:last-child { border-right: 0; padding-left: 16px; padding-right: 0; }
+  .prod-extras > div:nth-child(2) { padding-left: 16px; }
+  .prod-extras .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-2); }
+  .prod-extras .v { margin-top: 8px; font-size: 14px; color: var(--fg); }
+
+  .craft-section { padding: 100px var(--pad); border-top: 1px solid var(--line); background: var(--bg-2); }
+  .craft-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; }
+  .craft-grid h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(32px, 3.6vw, 52px); line-height: 1.05; margin: 12px 0 0; letter-spacing: -0.01em; }
+  .craft-list { list-style: none; padding: 0; margin: 0; }
+  .craft-list li { padding: 22px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 40px 1fr; gap: 20px; align-items: baseline; }
+  .craft-list li:last-child { border-bottom: 1px solid var(--line); }
+  .craft-list .num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--accent); }
+  .craft-list h5 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+  .craft-list p { color: var(--fg-2); margin: 0; font-size: 14px; max-width: 560px; }
+
+  /* ===== MODAL ===== */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 80;
+    background: rgba(18,16,14,0.55); backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .modal-backdrop.open { display: flex; animation: fadeIn .25s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    width: min(960px, 100%); max-height: 90vh; overflow: auto;
+    background: var(--bg); color: var(--fg);
+    display: grid; grid-template-columns: 0.9fr 1.1fr;
+    animation: rise .3s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes rise { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal-media { position: relative; min-height: 100%; background: var(--stone); }
+  .modal-media .ph { position: absolute; inset: 0; }
+  .modal-media .tag {
+    position: absolute; top: 20px; left: 20px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #fff; background: rgba(0,0,0,0.4); padding: 6px 10px; backdrop-filter: blur(4px);
+  }
+  .modal-body { padding: 40px; display: flex; flex-direction: column; gap: 22px; }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--line); cursor: pointer;
+    display: grid; place-items: center; font-size: 18px; z-index: 2;
+  }
+  .modal-close:hover { background: var(--fg); color: var(--bg); }
+  .modal h3 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.05; margin: 4px 0 0; letter-spacing: -0.01em; }
+  .modal h3 em { font-style: italic; color: var(--accent); }
+  .modal .product-ref {
+    display: flex; gap: 14px; align-items: center; padding: 14px; border: 1px solid var(--line); background: var(--bg-2);
+  }
+  .modal .product-ref .ph { width: 60px; height: 60px; flex: 0 0 60px; }
+  .modal .product-ref .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-2); }
+  .modal .product-ref .v { font-family: var(--serif); font-size: 18px; font-weight: 500; margin-top: 2px; }
+
+  .channels { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .chan {
+    padding: 14px 10px; text-align: center; border: 1px solid var(--line); cursor: pointer;
+    display: flex; flex-direction: column; gap: 6px; align-items: center;
+    transition: border-color .2s, background .2s;
+  }
+  .chan:hover, .chan.active { border-color: var(--fg); background: var(--bg-2); }
+  .chan.active { border-color: var(--accent); }
+  .chan .chan-name { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg); }
+  .chan .chan-sub { font-size: 11px; color: var(--fg-2); }
+  .chan svg { width: 20px; height: 20px; }
+
+  .field { display: grid; gap: 6px; }
+  .field label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-2); }
+  .field input, .field textarea {
+    border: none; border-bottom: 1px solid var(--line);
+    padding: 10px 0; background: transparent; font-family: var(--sans); font-size: 15px; color: var(--fg);
+    outline: none;
+  }
+  .field input:focus, .field textarea:focus { border-bottom-color: var(--accent); }
+  .field textarea { min-height: 80px; resize: vertical; font-family: var(--sans); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .fineprint { font-size: 12px; color: var(--fg-2); line-height: 1.5; }
+
+  /* ---------- Tweaks panel ---------- */
+  .tweaks-panel {
+    position: fixed; bottom: 20px; right: 20px; z-index: 100;
+    width: 300px; background: #fff; border: 1px solid var(--line);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    display: none;
+    font-family: var(--sans); color: #1a1815;
+  }
+  .tweaks-panel.open { display: block; }
+  .tweaks-head {
+    padding: 14px 18px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .tweaks-head button { background: none; border: none; cursor: pointer; font-size: 18px; line-height: 1; }
+  .tweaks-body { padding: 18px; display: grid; gap: 18px; }
+  .tweak-group label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #6b6459; display: block; margin-bottom: 8px; }
+  .swatches { display: flex; gap: 6px; }
+  .sw {
+    width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #fff;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .sw.active { box-shadow: 0 0 0 2px #1a1815; }
+  .opt-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .opt-row button {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 7px 10px; border: 1px solid var(--line); background: #fff; cursor: pointer;
+  }
+  .opt-row button.active { background: #1a1815; color: #fff; border-color: #1a1815; }
+
+  /* Utils */
+  .hidden { display: none !important; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-img { min-height: 60vh; border-left: 0; border-top: 1px solid var(--line); }
+    .split { grid-template-columns: 1fr; }
+    .split .media { border-right: 0; border-bottom: 1px solid var(--line); }
+    .values { grid-template-columns: repeat(2, 1fr); }
+    .values > div:nth-child(2n) { border-right: 0; }
+    .ctaband, .craft-grid { grid-template-columns: 1fr; }
+    .col-grid, body[data-density="dense"] .col-grid, body[data-density="editorial"] .col-grid, body[data-density="spacious"] .col-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-home { grid-template-columns: 1fr 1fr; }
+    .grid-home .pcard:nth-child(n) { grid-column: auto; margin-top: 0; }
+    .prod-wrap { grid-template-columns: 1fr; }
+    .prod-gallery { border-right: 0; border-bottom: 1px solid var(--line); }
+    .modal { grid-template-columns: 1fr; }
+    .modal-media { min-height: 240px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  }
+</style>
+</head>
+<body data-palette="ivory" data-density="editorial" data-cta="underline">
+
+<!-- Top marquee -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Curated from ateliers across India</span>
+    <span>Each piece one-of-one, signed by the maker</span>
+    <span>Private enquiry — message the owner directly</span>
+    <span>Complimentary white-glove delivery within India</span>
+    <span>Curated from ateliers across India</span>
+    <span>Each piece one-of-one, signed by the maker</span>
+    <span>Private enquiry — message the owner directly</span>
+    <span>Complimentary white-glove delivery within India</span>
+  </div>
+</div>
+
+<!-- Top bar -->
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <nav class="topbar-left">
+      <a class="nav-link active" data-nav="home">Atelier</a>
+      <a class="nav-link" data-nav="collection">Collection</a>
+      <a class="nav-link" data-nav="product">Journal</a>
+    </nav>
+    <a class="brand" data-nav="home">Wallantq<sup>est. 2019</sup></a>
+    <div class="topbar-right">
+      <a class="nav-link">Search</a>
+      <a class="nav-link">Enquire</a>
+      <div class="icon-btn" title="Account" aria-label="Account">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HOME PAGE ================= -->
+<main class="page active" data-page="home">
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="mono">Atelier Nº 01 · Spring Collection MMXXVI</div>
+      <h1>Objects of <em>quiet</em><br/>conviction.</h1>
+      <div>
+        <p class="hero-sub">A private catalogue of heirloom furnishings, wall art and handcrafted objects — each one sourced, photographed, and shipped from our studio. Nothing mass-produced. Nothing hurried.</p>
+        <div style="margin-top: 28px;">
+          <span class="btn-underline">Discover the collection <span>→</span></span>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div><strong>142</strong><span class="mono" style="display:block; margin-top:4px;">Pieces in rotation</span></div>
+        <div><strong>38</strong><span class="mono" style="display:block; margin-top:4px;">Artisan partners</span></div>
+        <div class="hero-scroll"><span class="line"></span> Scroll</div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="hero-index">IMG · 001 / 12</div>
+      <div class="ph" data-kind="video" data-label="HERO FILM · your product video"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker mono"><span class="dot"></span> Featured · Selection Nº 04</div>
+          <h2>A collection curated<br/>for those who <em>notice</em>.</h2>
+        </div>
+        <p>Five pieces from our spring rotation — each photographed in its own light, available individually by private enquiry.</p>
+      </div>
+
+      <div class="grid-home">
+        <div class="pcard" onclick="goto('product')">
+          <div class="ph" data-label="PRODUCT 01 · MARBLE CONSOLE"></div>
+          <div class="pcard-meta">
+            <div>
+              <div class="pcard-title">The Rajnigandha Console</div>
+              <div class="pcard-sub">Jaisalmer marble · Hand-turned</div>
+            </div>
+            <div class="pcard-num">Nº 01</div>
+          </div>
+        </div>
+        <div class="pcard" onclick="goto('product')">
+          <div class="ph" data-label="PRODUCT 02 · TERRACOTTA VESSEL"></div>
+          <div class="pcard-meta">
+            <div>
+              <div class="pcard-title">Mitti Series, V</div>
+              <div class="pcard-sub">Wheel-thrown earthenware</div>
+            </div>
+            <div class="pcard-num">Nº 02</div>
+          </div>
+        </div>
+        <div class="pcard" onclick="goto('product')">
+          <div class="ph" data-label="PRODUCT 03 · BRASS LAMP"></div>
+          <div class="pcard-meta">
+            <div>
+              <div class="pcard-title">Deepa Floor Light</div>
+              <div class="pcard-sub">Patinated brass · Silk shade</div>
+            </div>
+            <div class="pcard-num">Nº 03</div>
+          </div>
+        </div>
+        <div class="pcard" onclick="goto('product')">
+          <div class="ph" data-label="PRODUCT 04 · WOVEN TAPESTRY"></div>
+          <div class="pcard-meta">
+            <div>
+              <div class="pcard-title">Bhuj Wall Panel</div>
+              <div class="pcard-sub">Hand-woven wool · 1 of 1</div>
+            </div>
+            <div class="pcard-num">Nº 04</div>
+          </div>
+        </div>
+        <div class="pcard" onclick="goto('product')">
+          <div class="ph" data-label="PRODUCT 05 · TEAK LOUNGE"></div>
+          <div class="pcard-meta">
+            <div>
+              <div class="pcard-title">Kavya Lounge Chair</div>
+              <div class="pcard-sub">Reclaimed teak · Kaatha leather</div>
+            </div>
+            <div class="pcard-num">Nº 05</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 60px; text-align: center;">
+        <span class="btn-underline" onclick="goto('collection')">View full collection <span>→</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="media">
+      <div class="ph" data-label="STUDIO FILM · founder at work"></div>
+    </div>
+    <div>
+      <div class="section-kicker mono"><span class="dot"></span> Atelier · Our hand</div>
+      <h3>We don't stock<br/>a catalogue.<br/>We keep a <em>diary</em>.</h3>
+      <p>Wallantq began as a notebook of small obsessions — a corner of light, a finish of a floor, a particular green of an old door in Jodhpur. Every piece you see here was found, commissioned, or made because it answered something in that notebook.</p>
+      <p>There is no wholesale. No algorithm. If a piece speaks to you, write to us — and we'll tell you its story.</p>
+      <div class="signature">
+        <span class="sig-line"></span>
+        <span>— the founder</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div>
+      <div class="mono num">Nº 01</div>
+      <h4>One of one</h4>
+      <p>Single-edition pieces. When it's gone, it's gone. No reruns, no copies.</p>
+    </div>
+    <div>
+      <div class="mono num">Nº 02</div>
+      <h4>Private enquiry</h4>
+      <p>No cart, no checkout. Write to the owner and receive a personal reply within a day.</p>
+    </div>
+    <div>
+      <div class="mono num">Nº 03</div>
+      <h4>White-glove delivery</h4>
+      <p>Hand-packed in our studio. Complimentary installation within major cities.</p>
+    </div>
+    <div>
+      <div class="mono num">Nº 04</div>
+      <h4>Signed provenance</h4>
+      <p>Every object arrives with a hand-written card naming its maker and materials.</p>
+    </div>
+  </section>
+
+  <section class="pullquote">
+    <blockquote>"The most important things in a room<br/>are the ones that make you pause."</blockquote>
+    <cite>— Architectural Journal, Nº 184</cite>
+  </section>
+
+  <section class="ctaband">
+    <div>
+      <div class="section-kicker mono"><span class="dot"></span> A private line</div>
+      <h3>Looking for something<br/>in particular?</h3>
+    </div>
+    <div>
+      <p>Describe what you're searching for — a dining table for ten, a corner lamp with warm light, a piece for a quiet hallway — and we'll return with three hand-picked suggestions.</p>
+      <button class="btn" onclick="openModal()"><span>Open private enquiry</span> <span class="arrow">→</span></button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Wallantq</div>
+        <p>A small catalogue of considered objects. Shipped from our studio in India to homes around the world.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Catalogue</h5>
+        <ul>
+          <li><a>Spring MMXXVI</a></li>
+          <li><a>Archive</a></li>
+          <li><a>Commissions</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Studio</h5>
+        <ul>
+          <li><a>Our hand</a></li>
+          <li><a>Journal</a></li>
+          <li><a>Press</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Private line</h5>
+        <ul>
+          <li><a>WhatsApp</a></li>
+          <li><a>studio@wallantq.com</a></li>
+          <li><a>+91 · private</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© MMXXVI Wallantq · Made slowly in India</span>
+      <span>Site Nº 02 · v 1.0</span>
+    </div>
+  </footer>
+</main>
+
+<!-- ================= COLLECTION PAGE ================= -->
+<main class="page" data-page="collection">
+  <section class="shell col-head">
+    <div class="mono">The catalogue · Spring MMXXVI</div>
+    <h1>One hundred<br/>and forty-two<br/><em>quiet</em> things.</h1>
+    <div class="col-sub">
+      <p>A living archive of every piece currently in rotation at our studio. Filter by room, material or maker — then write to us about anything that stops you.</p>
+      <div class="mono">Showing 24 of 142</div>
+    </div>
+  </section>
+
+  <div class="shell filter-bar">
+    <div class="filters">
+      <button class="chip active">All · 142</button>
+      <button class="chip">Wall art · 38</button>
+      <button class="chip">Lighting · 24</button>
+      <button class="chip">Seating · 19</button>
+      <button class="chip">Tables · 22</button>
+      <button class="chip">Textiles · 18</button>
+      <button class="chip">Objects · 21</button>
+    </div>
+    <div class="view-toggle">
+      <span class="active">Grid</span>
+      <span>Index</span>
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="col-grid" id="collectionGrid"></div>
+  </div>
+
+  <div class="ctaband shell" style="border-top: 1px solid var(--line);">
+    <div>
+      <div class="section-kicker mono"><span class="dot"></span> Didn't find it?</div>
+      <h3>Commission a<br/>piece of your own.</h3>
+    </div>
+    <div>
+      <p>Our artisans accept a small number of private commissions each season. Tell us what you imagine, and we'll return with sketches and an honest timeline.</p>
+      <button class="btn ghost" onclick="openModal()"><span>Start a commission</span> <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Wallantq</div>
+        <p>A small catalogue of considered objects.</p>
+      </div>
+      <div class="foot-col"><h5>Catalogue</h5><ul><li><a>Spring MMXXVI</a></li><li><a>Archive</a></li></ul></div>
+      <div class="foot-col"><h5>Studio</h5><ul><li><a>Our hand</a></li><li><a>Journal</a></li></ul></div>
+      <div class="foot-col"><h5>Private line</h5><ul><li><a>WhatsApp</a></li><li><a>studio@wallantq.com</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© MMXXVI Wallantq</span><span>v 1.0</span></div>
+  </footer>
+</main>
+
+<!-- ================= PRODUCT PAGE ================= -->
+<main class="page" data-page="product">
+  <div class="prod-wrap">
+    <div class="prod-gallery">
+      <div class="main-img">
+        <div class="ph" data-label="HERO IMAGE · Rajnigandha Console"></div>
+      </div>
+      <div class="thumbs">
+        <div class="ph active" data-label="01"></div>
+        <div class="ph" data-label="02"></div>
+        <div class="ph" data-label="03"></div>
+        <div class="ph" data-kind="video" data-label="FILM"></div>
+      </div>
+    </div>
+
+    <div class="prod-info">
+      <div class="breadcrumb">
+        <a onclick="goto('collection')">Collection</a><span class="sep">·</span>
+        <a>Tables</a><span class="sep">·</span>
+        <span>Rajnigandha Console</span>
+      </div>
+      <div>
+        <div class="mono" style="color: var(--accent)">Nº 012 · one of one</div>
+        <h1 class="prod-title">The <em>Rajnigandha</em><br/>Console.</h1>
+      </div>
+      <p class="prod-deck">A slow, heavy piece hand-turned from a single block of Jaisalmer marble. Named for the night-blooming tuberose that grows in the quarry town where it was made. Carries light unusually well.</p>
+
+      <div class="prod-specs">
+        <div><div class="k">Material</div><div class="v">Jaisalmer marble</div></div>
+        <div><div class="k">Dimensions</div><div class="v">160 × 42 × 88 cm</div></div>
+        <div><div class="k">Weight</div><div class="v">124 kg</div></div>
+        <div><div class="k">Finish</div><div class="v">Honed, wax-sealed</div></div>
+      </div>
+
+      <div class="enquire">
+        <div class="price-note">
+          Offered by private enquiry
+          <strong>₹ on request</strong>
+        </div>
+        <button class="btn" onclick="openModal('The Rajnigandha Console', 'Nº 012')">
+          <span>Enquire about this piece</span> <span class="arrow">→</span>
+        </button>
+      </div>
+
+      <div class="prod-extras">
+        <div><div class="k">Maker</div><div class="v">Rameshwar Studio, Jaisalmer</div></div>
+        <div><div class="k">Lead time</div><div class="v">Ready to ship</div></div>
+        <div><div class="k">Delivery</div><div class="v">White-glove, complimentary</div></div>
+      </div>
+
+      <div class="fineprint">Signed and documented. Arrives with a hand-written card, care instructions, and the quarry's certificate of stone origin. Pieces may vary subtly due to natural veining.</div>
+    </div>
+  </div>
+
+  <section class="craft-section">
+    <div class="shell">
+      <div class="craft-grid">
+        <div>
+          <div class="section-kicker mono"><span class="dot"></span> Provenance</div>
+          <h3>How this piece<br/>came to be.</h3>
+        </div>
+        <ol class="craft-list">
+          <li>
+            <span class="num">01</span>
+            <div>
+              <h5>Quarried in Jaisalmer</h5>
+              <p>A single block of marble selected from a working quarry outside the old city, chosen for its density and the honey-gold cast it holds at dusk.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <h5>Turned by hand</h5>
+              <p>Rameshwar, third-generation stonecutter, worked the piece over eleven days on a floor lathe his grandfather built. No CNC, no templates.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <h5>Honed, not polished</h5>
+              <p>A honed finish is softer underhand and ages with use — a patina rather than a shine. Sealed with a natural bee-wax blend.</p>
+            </div>
+          </li>
+          <li>
+            <span class="num">04</span>
+            <div>
+              <h5>Signed and shipped</h5>
+              <p>Crated in-studio, with a hand-written card naming Rameshwar, his town, and the week the stone was cut.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker mono"><span class="dot"></span> You may also consider</div>
+          <h2>Kindred pieces.</h2>
+        </div>
+      </div>
+      <div class="col-grid" id="relatedGrid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      <div><div class="foot-brand">Wallantq</div><p>A small catalogue of considered objects.</p></div>
+      <div class="foot-col"><h5>Catalogue</h5><ul><li><a>Spring MMXXVI</a></li></ul></div>
+      <div class="foot-col"><h5>Studio</h5><ul><li><a>Our hand</a></li></ul></div>
+      <div class="foot-col"><h5>Private line</h5><ul><li><a>studio@wallantq.com</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><span>© MMXXVI Wallantq</span><span>v 1.0</span></div>
+  </footer>
+</main>
+
+<!-- ================= ENQUIRY MODAL ================= -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal" style="position: relative;">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-media">
+      <span class="tag" id="modalTag">NŸ 012</span>
+      <div class="ph" data-label="PRODUCT IMAGE"></div>
+    </div>
+    <div class="modal-body">
+      <div class="mono" style="color: var(--accent)">Private enquiry</div>
+      <h3>Write to <em>the owner</em><br/>about this piece.</h3>
+
+      <div class="product-ref">
+        <div class="ph" data-label=""></div>
+        <div>
+          <div class="k">Enquiring about</div>
+          <div class="v" id="modalProduct">The Rajnigandha Console</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="mono" style="margin-bottom: 10px;">How you'd like to reach us</div>
+        <div class="channels">
+          <div class="chan active" data-channel="form" onclick="pickChannel(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 7l9 6 9-6"/></svg>
+            <span class="chan-name">Form</span>
+            <span class="chan-sub">Reply in 24h</span>
+          </div>
+          <div class="chan" data-channel="whatsapp" onclick="pickChannel(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 12a8 8 0 0 1-12 6.9L3 20l1.2-4.5A8 8 0 1 1 20 12z"/></svg>
+            <span class="chan-name">WhatsApp</span>
+            <span class="chan-sub">Instant chat</span>
+          </div>
+          <div class="chan" data-channel="email" onclick="pickChannel(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16v16H4z"/><path d="M4 7l8 6 8-6"/></svg>
+            <span class="chan-name">Email</span>
+            <span class="chan-sub">Open mail app</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>Your name</label>
+          <input placeholder="Full name" />
+        </div>
+        <div class="field">
+          <label>City</label>
+          <input placeholder="Mumbai" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Preferred contact</label>
+        <input placeholder="Email or phone with country code" />
+      </div>
+      <div class="field">
+        <label>Your note</label>
+        <textarea placeholder="Is there a corner in mind? A deadline? Questions about the stone? Anything you tell us, we read." id="modalNote"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div class="fineprint">We answer from our studio inbox, never a bot.<br/>Your details stay private.</div>
+        <button class="btn" onclick="sendEnquiry()"><span>Send enquiry</span> <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TWEAKS PANEL ================= -->
+<div class="tweaks-panel" id="tweaksPanel">
+  <div class="tweaks-head">
+    <span>Tweaks</span>
+    <button onclick="toggleTweaks(false)">×</button>
+  </div>
+  <div class="tweaks-body">
+    <div class="tweak-group">
+      <label>Palette</label>
+      <div class="swatches">
+        <div class="sw" data-val="ivory" style="background: linear-gradient(135deg,#f5f1ea 50%, #a8864a 50%)"></div>
+        <div class="sw" data-val="stone" style="background: linear-gradient(135deg,#e8e2d3 50%, #7a5c2e 50%)"></div>
+        <div class="sw" data-val="mono" style="background: linear-gradient(135deg,#f4f4f2 50%, #0c0c0a 50%)"></div>
+        <div class="sw" data-val="forest" style="background: linear-gradient(135deg,#efece3 50%, #3e5136 50%)"></div>
+        <div class="sw" data-val="oxblood" style="background: linear-gradient(135deg,#f3ede3 50%, #6b1f27 50%)"></div>
+      </div>
+    </div>
+    <div class="tweak-group">
+      <label>Display font</label>
+      <div class="opt-row" data-key="displayFont">
+        <button data-val="Cormorant Garamond">Cormorant</button>
+        <button data-val="Playfair Display">Playfair</button>
+        <button data-val="DM Serif Display">DM Serif</button>
+      </div>
+    </div>
+    <div class="tweak-group">
+      <label>Grid density</label>
+      <div class="opt-row" data-key="gridDensity">
+        <button data-val="spacious">Spacious</button>
+        <button data-val="editorial">Editorial</button>
+        <button data-val="dense">Dense</button>
+      </div>
+    </div>
+    <div class="tweak-group">
+      <label>CTA style</label>
+      <div class="opt-row" data-key="ctaStyle">
+        <button data-val="underline">Underline</button>
+        <button data-val="button">Button</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra fonts loader (dynamic families) -->
+<link id="extraFonts" href="" rel="stylesheet">
+
+<script>
+  // ---------- Navigation ----------
+  function goto(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === page));
+    document.querySelectorAll('[data-nav]').forEach(n => n.classList.toggle('active', n.dataset.nav === page));
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    localStorage.setItem('wq_page', page);
+  }
+  document.querySelectorAll('[data-nav]').forEach(n => {
+    n.addEventListener('click', (e) => { e.preventDefault(); goto(n.dataset.nav); });
+  });
+  const savedPage = localStorage.getItem('wq_page');
+  if (savedPage) goto(savedPage);
+
+  // ---------- Collection grid ----------
+  const products = [
+    ['The Rajnigandha Console', 'Jaisalmer marble', 'Tables'],
+    ['Mitti Series, V', 'Wheel-thrown earthenware', 'Objects'],
+    ['Deepa Floor Light', 'Patinated brass', 'Lighting'],
+    ['Bhuj Wall Panel', 'Hand-woven wool', 'Wall art'],
+    ['Kavya Lounge Chair', 'Reclaimed teak', 'Seating'],
+    ['Nandi Side Table', 'Rosewood · inlay', 'Tables'],
+    ['Champa Pendant', 'Hammered brass', 'Lighting'],
+    ['Saanjh Textile Nº 03', 'Kala cotton · natural dye', 'Textiles'],
+    ['Dhuni Mirror', 'Aged Burma teak frame', 'Wall art'],
+    ['Parvat Stool', 'Kota stone', 'Seating'],
+    ['Taara Candleholder, pair', 'Solid brass', 'Objects'],
+    ['Shaam Sofa', 'Linen · walnut base', 'Seating'],
+    ['Mehfil Tray', 'Silver-leaf over wood', 'Objects'],
+    ['Baoli Bowl', 'Black clay', 'Objects'],
+    ['Gulaal Runner', 'Madder-root dyed wool', 'Textiles'],
+    ['Vihaan Wall Study', 'Charcoal on rag paper', 'Wall art'],
+    ['Chandani Floor Lamp', 'Mouth-blown glass', 'Lighting'],
+    ['Raag Low Table', 'Marble · brass inlay', 'Tables'],
+    ['Jaali Screen', 'Hand-carved sheesham', 'Objects'],
+    ['Koyal Writing Desk', 'Oak · cane', 'Tables'],
+    ['Amaltas Chair', 'Solid ash · rush seat', 'Seating'],
+    ['Rasta Runner Nº 08', 'Wool · vegetable dye', 'Textiles'],
+    ['Mausam Hanging', 'Jute · copper rod', 'Wall art'],
+    ['Neer Vessel, tall', 'Terracotta · salt glaze', 'Objects'],
+  ];
+  function renderGrid(el, items) {
+    el.innerHTML = items.map((p, i) => `
+      <div class="pcard" onclick="goto('product')">
+        <div class="ph" data-label="${String(i+1).padStart(2,'0')} · ${p[0]}"></div>
+        <div class="pcard-meta">
+          <div>
+            <div class="pcard-title">${p[0]}</div>
+            <div class="pcard-sub">${p[1]} · ${p[2]}</div>
+          </div>
+          <div class="pcard-num">Nº ${String(i+1).padStart(3,'0')}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+  renderGrid(document.getElementById('collectionGrid'), products);
+  renderGrid(document.getElementById('relatedGrid'), products.slice(5, 8));
+
+  // Filter chips (visual only)
+  document.querySelectorAll('.filter-bar .chip').forEach(c => {
+    c.addEventListener('click', () => {
+      document.querySelectorAll('.filter-bar .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+    });
+  });
+
+  // ---------- Modal ----------
+  function openModal(name, no) {
+    if (name) document.getElementById('modalProduct').textContent = name;
+    if (no)   document.getElementById('modalTag').textContent = no;
+    document.getElementById('modal').classList.add('open');
+  }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+  document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') closeModal();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  let activeChannel = 'form';
+  function pickChannel(el) {
+    document.querySelectorAll('.chan').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    activeChannel = el.dataset.channel;
+  }
+  function sendEnquiry() {
+    const product = document.getElementById('modalProduct').textContent;
+    const note = document.getElementById('modalNote').value || '(no additional note)';
+    if (activeChannel === 'whatsapp') {
+      const msg = encodeURIComponent(`Hello Wallantq — I'd like to enquire about "${product}".\n\n${note}`);
+      alert(`Would open: https://wa.me/91XXXXXXXXXX?text=${msg.slice(0,60)}...`);
+    } else if (activeChannel === 'email') {
+      const subj = encodeURIComponent(`Enquiry · ${product}`);
+      const body = encodeURIComponent(`Hello Wallantq,\n\nI'd like to enquire about "${product}".\n\n${note}\n\nThank you,`);
+      alert(`Would open: mailto:studio@wallantq.com?subject=${subj.slice(0,40)}...&body=...`);
+    } else {
+      alert(`Enquiry sent ✦\n\nProduct: ${product}\nChannel: Form\n\nYou'll hear from the studio within 24 hours.`);
+    }
+    closeModal();
+  }
+
+  // ---------- Tweaks ----------
+  function applyTweaks(t) {
+    document.body.dataset.palette = t.palette;
+    document.body.dataset.density = t.gridDensity;
+    document.body.dataset.cta = t.ctaStyle;
+    document.documentElement.style.setProperty('--serif', `"${t.displayFont}", Georgia, serif`);
+    // Load font if not default
+    const map = {
+      'Cormorant Garamond': 'Cormorant+Garamond:ital,wght@0,400;0,500;1,400',
+      'Playfair Display': 'Playfair+Display:ital,wght@0,400;0,500;0,600;1,400',
+      'DM Serif Display': 'DM+Serif+Display'
+    };
+    if (map[t.displayFont]) {
+      document.getElementById('extraFonts').href = `https://fonts.googleapis.com/css2?family=${map[t.displayFont]}&display=swap`;
+    }
+    // Reflect in UI
+    document.querySelectorAll('.sw').forEach(s => s.classList.toggle('active', s.dataset.val === t.palette));
+    document.querySelectorAll('.opt-row').forEach(row => {
+      const key = row.dataset.key;
+      row.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.val === t[key]));
+    });
+  }
+  applyTweaks(TWEAKS);
+
+  document.querySelectorAll('.sw').forEach(s => s.addEventListener('click', () => {
+    TWEAKS.palette = s.dataset.val; applyTweaks(TWEAKS); persist();
+  }));
+  document.querySelectorAll('.opt-row').forEach(row => {
+    const key = row.dataset.key;
+    row.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      TWEAKS[key] = b.dataset.val; applyTweaks(TWEAKS); persist();
+    }));
+  });
+  function persist() {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: TWEAKS }, '*');
+  }
+  function toggleTweaks(on) {
+    document.getElementById('tweaksPanel').classList.toggle('open', on);
+  }
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if (d.type === '__activate_edit_mode') toggleTweaks(true);
+    if (d.type === '__deactivate_edit_mode') toggleTweaks(false);
+  });
+  // Register AFTER listener
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+
+</body>
+</html>
