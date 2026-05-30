@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dev-wallantq.netlify.app"),
   title: "Wallantq Gallery — Premium Handcrafted Dimensional Wood Relief Art",
   description:
-    "Wallantq Gallery — premium handcrafted dimensional wood relief art made in Surat, India. Each piece is hand-painted with a protective PU coat. Fully customizable. Enquire for price and availability.",
+    "Wallantq Gallery — premium handcrafted dimensional wood relief art. Each piece is hand-painted with a protective PU coat and curated to bring a lasting, quiet presence to refined spaces. Enquire for price and availability.",
   keywords: ["dimensional wood relief art", "handcrafted wall art", "mandala wall art", "premium wall art India", "sculptural wood relief", "custom wall art"],
   icons: {
     icon: "/assets/logo/full-color.jpg",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Wallantq Gallery — Premium Handcrafted Dimensional Wood Relief Art",
-    description: "Premium handcrafted dimensional wood relief art made in Surat, India. Curated heirloom wall art.",
+    description: "Premium handcrafted dimensional wood relief art. Curated heirloom wall art for modern collector-style interiors.",
     images: [
       {
         url: "/assets/logo/full-color.jpg",

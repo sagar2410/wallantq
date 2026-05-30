@@ -137,7 +137,7 @@ export default function HomePage() {
                 textShadow: "0 1px 8px rgba(0,0,0,0.5)",
               }}
             >
-              Premium handcrafted dimensional wood relief art — each piece hand-painted with a protective PU coat, made to order in our Surat studio. Nothing mass-produced. Fully customizable.
+              Premium handcrafted dimensional wood relief art — each piece is individually hand-finished with a protective PU coat and curated to bring a lasting, quiet presence to refined spaces.
             </p>
             <div
               style={{

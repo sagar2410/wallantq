@@ -72,7 +72,7 @@ export default function CollectionPage() {
           }}
         >
           <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.7, maxWidth: 520 }}>
-            A living archive of every piece currently in rotation at our studio. Each one sourced, photographed, and shipped from our atelier in Surat.
+            A living archive of every piece currently in rotation at our studio. Each one is sourced, photographed, and shipped directly from our private atelier.
           </p>
           <div
             style={{
