@@ -137,7 +137,7 @@ export default function HomePage() {
                 textShadow: "0 1px 8px rgba(0,0,0,0.5)",
               }}
             >
-              Premium 10-layer MDF handcrafted wall art — each piece hand-painted with protective PU coat, made to order in our Surat studio. Nothing mass-produced. Fully customizable.
+              Premium handcrafted dimensional wood relief art — each piece hand-painted with a protective PU coat, made to order in our Surat studio. Nothing mass-produced. Fully customizable.
             </p>
             <div
               style={{
@@ -442,7 +442,7 @@ export default function HomePage() {
       <section style={{ background: "var(--bg)", borderTop: "1px solid var(--line)" }}>
         <div className="grid-4 values-grid" style={{ maxWidth: "var(--maxw)", margin: "0 auto" }}>
           {[
-            { num: "Nº 01", title: "Premium 10-layer MDF", body: "Each piece is built from 10 individually cut MDF layers, hand-painted with protective PU coat. No shortcuts, no mass production." },
+            { num: "Nº 01", title: "Dimensional Wood Relief", body: "Each piece is built from individually hand-cut and layered wood elements, hand-painted with a protective PU coat. No shortcuts, no mass production." },
             { num: "Nº 02", title: "Private enquiry", body: "No cart, no checkout. Write to us on WhatsApp or email and receive a personal reply within 24 hours." },
             { num: "Nº 03", title: "Your vision, our creation", body: "Every design is fully customizable — size, palette, finish — crafted to fit your space and your story." },
             { num: "Nº 04", title: "7-day guarantee", body: "Not satisfied? Return within 7 days, no questions asked. Every piece ships with a hand-written card and care instructions." },

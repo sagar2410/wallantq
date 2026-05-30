@@ -29,17 +29,17 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dev-wallantq.netlify.app"),
-  title: "Wallantq Gallery — Premium 10-Layer MDF Handcrafted Wall Art",
+  title: "Wallantq Gallery — Premium Handcrafted Dimensional Wood Relief Art",
   description:
-    "Wallantq Gallery — premium 10-layer MDF handcrafted wall art made in Surat, India. Each piece is hand-painted with protective PU coat. Fully customizable. Enquire for price and availability.",
-  keywords: ["10-layer MDF wall art", "handcrafted wall art", "mandala wall art", "premium wall art India", "MDF wall art Surat", "custom wall art"],
+    "Wallantq Gallery — premium handcrafted dimensional wood relief art made in Surat, India. Each piece is hand-painted with a protective PU coat. Fully customizable. Enquire for price and availability.",
+  keywords: ["dimensional wood relief art", "handcrafted wall art", "mandala wall art", "premium wall art India", "sculptural wood relief", "custom wall art"],
   icons: {
     icon: "/assets/logo/full-color.jpg",
     apple: "/assets/logo/full-color.jpg",
   },
   openGraph: {
-    title: "Wallantq Gallery — Premium 10-Layer MDF Handcrafted Wall Art",
-    description: "Premium 10-layer MDF handcrafted wall art made in Surat, India. Curated heirloom wall art.",
+    title: "Wallantq Gallery — Premium Handcrafted Dimensional Wood Relief Art",
+    description: "Premium handcrafted dimensional wood relief art made in Surat, India. Curated heirloom wall art.",
     images: [
       {
         url: "/assets/logo/full-color.jpg",

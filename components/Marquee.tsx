@@ -2,7 +2,7 @@
 
 export default function Marquee() {
   const items = [
-    "Premium 10-Layer MDF Handcrafted Wall Art",
+    "Premium Handcrafted Dimensional Wood Relief",
     "Hand-painted with protective PU coat",
     "Complimentary shipping across India",
   ];
