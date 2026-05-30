@@ -357,11 +357,16 @@ export default function HomePage() {
         className="grid-2"
         style={{ minHeight: "60vh", borderTop: "1px solid var(--line)" }}
       >
-        <Reveal direction="left" threshold={0.1} style={{ position: "relative", minHeight: 480, overflow: "hidden" }}>
+        <Reveal
+          direction="left"
+          threshold={0.1}
+          className="philosophy-img-wrap"
+          style={{ position: "relative", minHeight: 480, overflow: "hidden" }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={getProductImageUrl(products.find((p) => p.slug === "winxmf02")!)}
-            alt="Wallantq studio"
+            src={getProductImageUrl(products.find((p) => p.slug === "wanxmf05")!)}
+            alt="Dune Sovereigns"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div style={{ position: "absolute", inset: 0, background: "rgba(13,11,9,0.15)" }} />

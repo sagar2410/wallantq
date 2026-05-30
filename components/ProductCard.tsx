@@ -151,18 +151,6 @@ export default function ProductCard({ product }: Props) {
             {product.material}
           </div>
         </div>
-        <div
-          style={{
-            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-            fontSize: 9,
-            letterSpacing: "0.2em",
-            color: "var(--fg-2)",
-            flexShrink: 0,
-            marginTop: 4,
-          }}
-        >
-          ₹ on request
-        </div>
       </div>
     </Link>
   );

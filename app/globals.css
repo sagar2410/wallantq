@@ -228,7 +228,7 @@ button { font-family: inherit; }
 /* ══════════════════════════════════════════
    FOOTER / PRODUCT / CONTACT GRIDS
 ══════════════════════════════════════════ */
-.footer-grid   { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.4fr; }
+.footer-grid   { display: grid; grid-template-columns: 1.6fr 1fr 1.4fr; }
 .product-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
 .contact-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(48px, 8vw, 120px); }
 
@@ -274,11 +274,11 @@ button { font-family: inherit; }
   .shell { padding: 0 20px; }
 
   /* ─ Grids ─ */
-  .grid-feat { grid-template-columns: 1fr; }
+  .grid-feat { grid-template-columns: 1fr 1fr; gap: 14px; }
   .grid-feat > * { grid-column: auto !important; margin-top: 0 !important; }
   .grid-4  { grid-template-columns: 1fr 1fr; }
   .grid-4g { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .grid-3g { grid-template-columns: 1fr; gap: 20px; }
+  .grid-3g { grid-template-columns: 1fr 1fr; gap: 14px; }
   .grid-2  { grid-template-columns: 1fr; }
 
   /* ─ Trust badges: compact 2×2 grid ─ */
@@ -321,6 +321,7 @@ button { font-family: inherit; }
   /* ─ Product / Contact ─ */
   .product-layout { grid-template-columns: 1fr; min-height: auto; }
   .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+  .philosophy-img-wrap { min-height: auto !important; aspect-ratio: 2 / 1; }
 
   /* ─ About / Contact page ─ */
   .about-2col { grid-template-columns: 1fr; }

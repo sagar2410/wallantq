@@ -31,7 +31,6 @@ export default function Footer() {
           margin: "0 auto",
           padding: "clamp(56px,8vw,96px) var(--pad) clamp(48px,6vw,72px)",
           display: "grid",
-          gridTemplateColumns: "1.6fr 1fr 1.4fr",
           gap: "clamp(32px,5vw,72px)",
           alignItems: "start",
         }}
