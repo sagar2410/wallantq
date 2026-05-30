@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     formats: ["image/avif", "image/webp"],
   },
-  webpack(config, { isServer }) {
+  webpack(config, { isServer, dev }) {
+    if (dev) return config;
     // Consolidate chunks on BOTH client and server so that the _not-found
     // static-export worker can resolve every client-module reference in the
     // RSC manifest without "e[o] is not a function" errors.
