@@ -23,6 +23,11 @@ export interface Product {
   colorPalette?: string;
   mood?: string;
   tags?: string[];
+  mediaSource?: "hostinger" | "cms";
+  sanityImageUrl?: string;
+  sanityVideoUrl?: string;
+  featured?: boolean;
+  newArrival?: boolean;
 }
 
 export const products: Product[] = [

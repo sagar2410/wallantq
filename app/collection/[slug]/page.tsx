@@ -1,19 +1,24 @@
 import { notFound } from "next/navigation";
-import { getProduct, getRelated, products } from "@/lib/products";
+import { products as staticProducts } from "@/lib/products";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
 import EnquireButton from "@/components/EnquireButton";
 import Link from "next/link";
 import { getProductImageUrl, getProductVideoUrl, getProductPngUrl } from "@/lib/utils/drive";
+import { getSanityProducts } from "@/lib/utils/sanity";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const sanityProducts = await getSanityProducts();
+  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const sanityProducts = await getSanityProducts();
+  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const product = products.find((p) => p.slug === slug);
   if (!product) return {};
   return {
     title: `${product.title}${product.titleAccent || ""}${product.titleAfter || ""} — Wallantq`,
@@ -23,10 +28,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const sanityProducts = await getSanityProducts();
+  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
-  const related = getRelated(slug, 3);
+  const related = products.filter((p) => p.slug !== slug).slice(0, 3);
   const mainImage = getProductImageUrl(product);
   const pngImage = getProductPngUrl(product);
   const videoSrc = getProductVideoUrl(product);

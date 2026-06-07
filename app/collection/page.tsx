@@ -1,13 +1,17 @@
 import Footer from "@/components/Footer";
 import CollectionClient from "@/components/CollectionClient";
-import { products } from "@/lib/products";
+import { products as staticProducts } from "@/lib/products";
+import { getSanityProducts } from "@/lib/utils/sanity";
 
 export const metadata = {
   title: "Collection — Wallantq",
   description: "Every piece currently in rotation at our studio.",
 };
 
-export default function CollectionPage() {
+export default async function CollectionPage() {
+  const sanityProducts = await getSanityProducts();
+  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+
   return (
     <>
       {/* ── Header ── */}

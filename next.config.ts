@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -8,6 +9,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   webpack(config, { isServer, dev }) {
+    if (config.module) {
+      if (!config.module.parser) config.module.parser = {};
+      if (!config.module.parser.javascript) config.module.parser.javascript = {};
+      config.module.parser.javascript.exportsPresence = "warn";
+    }
+
     if (dev) return config;
     // Consolidate chunks on BOTH client and server so that the _not-found
     // static-export worker can resolve every client-module reference in the

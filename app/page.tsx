@@ -5,25 +5,37 @@ import HeroVideo from "@/components/HeroVideo";
 import EnquireButton from "@/components/EnquireButton";
 import TrustBadges from "@/components/TrustBadges";
 import Reveal from "@/components/Reveal";
-import { products } from "@/lib/products";
+import { products as staticProducts } from "@/lib/products";
 import { getProductImageUrl, getProductVideoUrl } from "@/lib/utils/drive";
+import { getSanityProducts } from "@/lib/utils/sanity";
 
-const featured = [
-  products.find((p) => p.slug === "wanxmf05")!,
-  products.find((p) => p.slug === "wmnxmf22")!,
-  products.find((p) => p.slug === "wmnxmf27_sq")!,
-  products.find((p) => p.slug === "wmnxmf39")!,
-  products.find((p) => p.slug === "winxmf01")!,
-];
+export default async function HomePage() {
+  const sanityProducts = await getSanityProducts();
+  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
 
-const newArrivals = [
-  products.find((p) => p.slug === "wmnxmf27")!,
-  products.find((p) => p.slug === "wmnxmf16")!,
-  products.find((p) => p.slug === "wmnxmf02")!,
-  products.find((p) => p.slug === "wmnxmf05")!,
-];
+  // Curate featured items
+  let featured = products.filter((p) => p.featured);
+  if (featured.length === 0) {
+    featured = [
+      products.find((p) => p.slug === "wanxmf05")!,
+      products.find((p) => p.slug === "wmnxmf22")!,
+      products.find((p) => p.slug === "wmnxmf27_sq")!,
+      products.find((p) => p.slug === "wmnxmf39")!,
+      products.find((p) => p.slug === "winxmf01")!,
+    ].filter(Boolean);
+  }
 
-export default function HomePage() {
+  // Curate new arrivals
+  let newArrivals = products.filter((p) => p.newArrival);
+  if (newArrivals.length === 0) {
+    newArrivals = [
+      products.find((p) => p.slug === "wmnxmf27")!,
+      products.find((p) => p.slug === "wmnxmf16")!,
+      products.find((p) => p.slug === "wmnxmf02")!,
+      products.find((p) => p.slug === "wmnxmf05")!,
+    ].filter(Boolean);
+  }
+
   const heroVideos = products.map((p) => ({
     src: getProductVideoUrl(p) ?? "",
     poster: getProductImageUrl(p),
