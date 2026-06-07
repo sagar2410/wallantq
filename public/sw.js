@@ -1,7 +1,6 @@
 // Wallantq Service Worker — cache-first for Hostinger assets + background prefetch
 const CACHE_VERSION = 'wallantq-v4';
-const ASSET_HOST = 'wallantq.com';
-const ASSET_PATH = '/assets/wallantq';
+const ASSET_HOST = 'assets.wallantq.com';
 
 // On install — take control immediately
 self.addEventListener('install', () => self.skipWaiting());
@@ -17,7 +16,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Cache-first for all Hostinger assets
+// Cache-first for all Cloudflare R2 assets
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -25,7 +24,7 @@ self.addEventListener('fetch', (event) => {
   let url;
   try { url = new URL(req.url); } catch { return; }
 
-  if (url.hostname !== ASSET_HOST || !url.pathname.startsWith(ASSET_PATH)) return;
+  if (url.hostname !== ASSET_HOST) return;
 
   const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname);
   const isVideo = /\.mp4(\?.*)?$/i.test(url.pathname);
