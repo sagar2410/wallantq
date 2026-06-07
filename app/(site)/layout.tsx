@@ -53,20 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
-      <body>
-        <ServiceWorkerRegistration />
-        {/* Marquee — fixed at very top, hidden on mobile */}
-        <div className="mob-hide" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>
-          <Marquee />
-        </div>
-        {/* TopBar — fixed below marquee */}
-        <TopBar />
-        {/* Main content — no top padding; hero pages are full-bleed */}
-        <main>{children}</main>
-      </body>
-    </html>
+    <div className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <ServiceWorkerRegistration />
+      {/* Marquee — fixed at very top, hidden on mobile */}
+      <div className="mob-hide" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>
+        <Marquee />
+      </div>
+      {/* TopBar — fixed below marquee */}
+      <TopBar />
+      {/* Main content — no top padding; hero pages are full-bleed */}
+      <main>{children}</main>
+    </div>
   );
 }
