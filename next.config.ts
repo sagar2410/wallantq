@@ -7,6 +7,50 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     formats: ["image/avif", "image/webp"],
   },
+  ...(process.env.NODE_ENV === "development"
+    ? {
+        async rewrites() {
+          return [
+            {
+              source: "/admin/:path*",
+              destination: "http://localhost:3333/admin/:path*",
+            },
+            {
+              source: "/.sanity/:path*",
+              destination: "http://localhost:3333/.sanity/:path*",
+            },
+            {
+              source: "/@vite/:path*",
+              destination: "http://localhost:3333/@vite/:path*",
+            },
+            {
+              source: "/@react-refresh",
+              destination: "http://localhost:3333/@react-refresh",
+            },
+            {
+              source: "/static/:path*",
+              destination: "http://localhost:3333/static/:path*",
+            },
+            {
+              source: "/node_modules/:path*",
+              destination: "http://localhost:3333/node_modules/:path*",
+            },
+            {
+              source: "/@fs/:path*",
+              destination: "http://localhost:3333/@fs/:path*",
+            },
+            {
+              source: "/sanity.config.ts",
+              destination: "http://localhost:3333/sanity.config.ts",
+            },
+            {
+              source: "/sanity/:path*",
+              destination: "http://localhost:3333/sanity/:path*",
+            },
+          ];
+        },
+      }
+    : {}),
   webpack(config, { isServer, dev }) {
     if (dev) return config;
     // Consolidate chunks on BOTH client and server so that the _not-found
