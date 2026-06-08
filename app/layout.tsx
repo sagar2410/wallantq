@@ -58,8 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body>
         <ServiceWorkerRegistration />
-        {/* Marquee — fixed at very top, hidden on mobile */}
-        <div className="mob-hide" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>
+        {/* Marquee — fixed at very top, visible on all screen sizes */}
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>
           <Marquee />
         </div>
         {/* TopBar — fixed below marquee */}

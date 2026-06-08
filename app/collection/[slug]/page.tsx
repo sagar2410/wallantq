@@ -38,10 +38,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <>
       {/* ── 50/50 split ── */}
       <div
+        className="product-layout"
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          minHeight: "100vh",
           paddingTop: 100, // topbar height offset
           background: "var(--bg)",
         }}
@@ -56,15 +54,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         />
 
         {/* Info panel */}
-        <div
-          style={{
-            padding: "clamp(18px, 2vw, 28px) clamp(40px, 5vw, 80px) clamp(40px, 5vw, 72px)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 36,
-            background: "var(--bg)",
-          }}
-        >
+        <div className="product-info">
           {/* Breadcrumb */}
           <div
             style={{
@@ -139,13 +129,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </p>
 
           {/* Specs — 2×2 grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              borderTop: "1px solid var(--line)",
-            }}
-          >
+          <div className="product-specs">
             {[
               { k: "Material", v: product.material },
               { k: "Dimensions", v: product.dimensions },
@@ -154,13 +138,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             ].map((spec, i) => (
               <div
                 key={i}
-                style={{
-                  padding: "20px 0",
-                  borderBottom: "1px solid var(--line)",
-                  borderRight: i % 2 === 0 ? "1px solid var(--line)" : undefined,
-                  paddingRight: i % 2 === 0 ? 24 : 0,
-                  paddingLeft: i % 2 === 1 ? 24 : 0,
-                }}
+                className={`product-spec-cell ${i % 2 === 0 ? "even" : "odd"}`}
               >
                 <div
                   style={{
@@ -292,7 +270,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
 
           {/* Extras 3-col */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+          <div className="product-extras">
             {[
               { k: "Maker", v: product.maker },
               { k: "Lead time", v: product.leadTime },
@@ -300,12 +278,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             ].map((extra, i) => (
               <div
                 key={i}
-                style={{
-                  padding: "0",
-                  borderRight: i < 2 ? "1px solid var(--line)" : undefined,
-                  paddingRight: i < 2 ? 20 : 0,
-                  paddingLeft: i > 0 ? 20 : 0,
-                }}
+                className={`product-extra-cell ${i < 2 ? "border-r" : ""} ${i > 0 ? "pad-l" : ""}`}
               >
                 <div
                   style={{
@@ -346,15 +319,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           padding: "clamp(72px, 10vw, 120px) var(--pad)",
         }}
       >
-        <div
-          style={{
-            maxWidth: "var(--maxw)",
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: "clamp(40px, 6vw, 80px)",
-          }}
-        >
+        <div className="provenance-grid">
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
               <span style={{ width: 24, height: 1, background: "var(--accent)", display: "block" }} />
@@ -476,13 +441,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "clamp(40px, 5vw, 72px) clamp(24px, 3vw, 40px)",
-            }}
-          >
+          <div className="kindred-grid">
             {related.map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}
