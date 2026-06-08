@@ -230,6 +230,66 @@ button { font-family: inherit; }
 ══════════════════════════════════════════ */
 .footer-grid   { display: grid; grid-template-columns: 1.6fr 1fr 1.4fr; }
 .product-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.product-gallery {
+  background: #0a0907;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(18px, 2vw, 28px) clamp(32px, 4vw, 56px) clamp(32px, 4vw, 56px);
+  position: sticky;
+  top: 100px;
+  height: calc(100vh - 100px);
+}
+.product-info {
+  padding: clamp(18px, 2vw, 28px) clamp(40px, 5vw, 80px) clamp(40px, 5vw, 72px);
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  background: var(--bg);
+}
+.product-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+}
+.product-spec-cell {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.product-spec-cell.even {
+  border-right: 1px solid var(--line);
+  padding-right: 24px;
+}
+.product-spec-cell.odd {
+  padding-left: 24px;
+}
+.product-extras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.product-extra-cell {
+  padding: 0;
+}
+.product-extra-cell.border-r {
+  border-right: 1px solid var(--line);
+  padding-right: 20px;
+}
+.product-extra-cell.pad-l {
+  padding-left: 20px;
+}
+.provenance-grid {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: clamp(40px, 6vw, 80px);
+}
+.kindred-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(40px, 5vw, 72px) clamp(24px, 3vw, 40px);
+}
 .contact-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(48px, 8vw, 120px); }
 
 /* ══════════════════════════════════════════
@@ -260,10 +320,12 @@ button { font-family: inherit; }
 ══════════════════════════════════════════ */
 @media (max-width: 768px) {
 
-  /* ─ Hide marquee, topbar flush to top ─ */
-  .mob-hide { display: none !important; }
-  .topbar-header { top: 0 !important; }
+  /* — Marquee compact on mobile — */
+  .marquee-track span { font-size: 9px !important; padding: 0 18px !important; gap: 18px !important; }
   .topbar-inner { padding: 14px 20px !important; }
+
+  /* ─ Hide desktop-only elements ─ */
+  .mob-hide { display: none !important; }
 
   /* ─ Nav ─ */
   .mob-nav-btn  { display: flex; }
@@ -320,6 +382,48 @@ button { font-family: inherit; }
 
   /* ─ Product / Contact ─ */
   .product-layout { grid-template-columns: 1fr; min-height: auto; }
+  .product-gallery {
+    position: relative;
+    top: 0;
+    height: 60vh;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 24px 20px;
+  }
+  .product-info {
+    padding: 36px 20px 60px;
+    gap: 28px;
+  }
+  .product-specs {
+    grid-template-columns: 1fr;
+  }
+  .product-spec-cell {
+    padding: 16px 0;
+  }
+  .product-spec-cell.even, .product-spec-cell.odd {
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .product-extras {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .product-extra-cell.border-r {
+    border-right: none;
+    padding-right: 0;
+  }
+  .product-extra-cell.pad-l {
+    padding-left: 0;
+  }
+  .provenance-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .kindred-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
   .contact-layout { grid-template-columns: 1fr; gap: 40px; }
   .philosophy-img-wrap { min-height: auto !important; aspect-ratio: 2 / 1; }
 

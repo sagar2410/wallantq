@@ -58,16 +58,8 @@ export default function ProductGallery({ images, videoSrc, posterSrc, pngSrc, pr
 
   return (
     <div
+      className="product-gallery"
       style={{
-        background: "#0a0907",
-        borderRight: "1px solid var(--line)",
-        display: "flex",
-        flexDirection: "column",
-        gap: 24,
-        padding: "clamp(18px, 2vw, 28px) clamp(32px, 4vw, 56px) clamp(32px, 4vw, 56px)",
-        position: "sticky",
-        top: 100,
-        height: "calc(100vh - 100px)",
         zIndex: isFullscreen ? 1100 : undefined,
       }}
     >
