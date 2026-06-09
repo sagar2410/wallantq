@@ -147,9 +147,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
     { title: '100% Secure', sub: 'Private & secure enquiry' },
   ],
 
-  aboutHeroImageUrl: 'https://drive.google.com/thumbnail?id=1lflDkjhiKbgMX0bUbNBytnzKZvGoZXvL&sz=w2000-h2000',
-  aboutMissionImageUrl: 'https://drive.google.com/thumbnail?id=1aTXvDaA1RipD3zSM2cdNxkq6H125bT8T&sz=w2000-h2000',
-  aboutStudioImageUrl: 'https://drive.google.com/thumbnail?id=1Md2WXXnw3l1RuH4DC1jQkgMQ-OqoV6BJ&sz=w2000-h2000',
+  aboutHeroImageUrl: '',
+  aboutMissionImageUrl: '',
+  aboutStudioImageUrl: '',
 }
 
 const QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0] {

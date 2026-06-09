@@ -7,16 +7,8 @@ export default function ServiceWorkerRegistration() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
-    const aboutImageIds = [
-      "1lflDkjhiKbgMX0bUbNBytnzKZvGoZXvL",
-      "1aTXvDaA1RipD3zSM2cdNxkq6H125bT8T",
-      "1Md2WXXnw3l1RuH4DC1jQkgMQ-OqoV6BJ",
-    ];
-    const aboutUrls = aboutImageIds.map((id) => `https://drive.google.com/thumbnail?id=${id}&sz=w2000-h2000`);
-
     getSanityProducts().then((products) => {
-      const productUrls = products.map(getProductImageUrl).filter(Boolean);
-      const urls = [...productUrls, ...aboutUrls];
+      const urls = products.map(getProductImageUrl).filter(Boolean);
 
       navigator.serviceWorker.register("/sw.js").then((reg) => {
         const sendPrefetch = (sw: ServiceWorker) => {

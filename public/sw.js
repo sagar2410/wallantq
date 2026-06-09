@@ -16,7 +16,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Cache-first for all assets (Sanity, R2, and Google Drive thumbnails)
+// Cache-first for all assets (Sanity and R2)
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -26,10 +26,9 @@ self.addEventListener('fetch', (event) => {
 
   const isSanity = url.hostname === 'cdn.sanity.io';
   const isLegacy = url.hostname === ASSET_HOST;
-  const isDrive = url.hostname === 'drive.google.com' && url.pathname === '/thumbnail';
-  if (!isSanity && !isLegacy && !isDrive) return;
+  if (!isSanity && !isLegacy) return;
 
-  const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname) || isDrive;
+  const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname);
   const isVideo = /\.mp4(\?.*)?$/i.test(url.pathname);
   if (!isImage && !isVideo) return;
 
