@@ -91,14 +91,13 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
       }}
     >
       <div
+        className="enquiry-modal-content"
         style={{
           width: "min(900px, 100%)",
           maxHeight: "90vh",
           overflowY: "auto",
           background: "#0d0b09",
           border: "1px solid var(--line)",
-          display: "grid",
-          gridTemplateColumns: "0.85fr 1.15fr",
           position: "relative",
           animation: "rise 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
           boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
@@ -132,7 +131,10 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
         </button>
 
         {/* Left: product image */}
-        <div style={{ position: "relative", minHeight: 420, background: "#141210", overflow: "hidden" }}>
+        <div
+          className="enquiry-modal-media"
+          style={{ position: "relative", background: "#141210", overflow: "hidden" }}
+        >
           {productImage ? (
             <Image src={productImage} alt={productName} fill style={{ objectFit: "cover", opacity: 0.85 }} />
           ) : (
@@ -252,7 +254,7 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
           </div>
 
           {/* Fields */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <div className="enquiry-modal-fields" style={{ display: "grid", gap: 16 }}>
             <div>
               <Field label="Your name *" error={errors.name}>
                 <input
