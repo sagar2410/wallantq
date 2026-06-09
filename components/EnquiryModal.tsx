@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 
 const t = (s: string) => s;
@@ -27,6 +28,12 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
   const [note, setNote] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const backdropRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -71,37 +78,16 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
     setErrors({});
   }
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
+  return createPortal(
     <div
       ref={backdropRef}
       onClick={(e) => { if (e.target === backdropRef.current) handleClose(); }}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 100,
-        background: "rgba(7,6,5,0.82)",
-        backdropFilter: "blur(12px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-        animation: "fadeIn 0.25s ease",
-      }}
+      className="enquiry-modal-backdrop"
     >
       <div
         className="enquiry-modal-content"
-        style={{
-          width: "min(900px, 100%)",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          background: "#0d0b09",
-          border: "1px solid var(--line)",
-          position: "relative",
-          animation: "rise 0.35s cubic-bezier(0.22, 1, 0.36, 1)",
-          boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
-        }}
       >
         {/* Close */}
         <button
@@ -326,7 +312,8 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

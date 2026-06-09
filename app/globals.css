@@ -302,9 +302,41 @@ button { font-family: inherit; }
 .contact-actions > a { transition: background 0.2s; }
 .contact-actions > a:hover { background: rgba(201,169,110,0.05) !important; }
 
-.enquiry-modal-content { display: grid; grid-template-columns: 0.85fr 1.15fr; }
-.enquiry-modal-media { min-height: 420px; }
-.enquiry-modal-fields { display: grid; grid-template-columns: 1fr 1fr; }
+.enquiry-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(7, 6, 5, 0.82);
+  backdrop-filter: blur(12px);
+  padding: 16px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: fadeIn 0.25s ease;
+}
+
+.enquiry-modal-content {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  width: min(900px, 100%);
+  margin: auto;
+  background: #0d0b09;
+  border: 1px solid var(--line);
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: rise 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.enquiry-modal-media {
+  min-height: 420px;
+}
+
+.enquiry-modal-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 /* ══════════════════════════════════════════
    TABLET  ≤ 1024px
