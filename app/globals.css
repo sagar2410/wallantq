@@ -228,7 +228,7 @@ button { font-family: inherit; }
 /* ══════════════════════════════════════════
    FOOTER / PRODUCT / CONTACT GRIDS
 ══════════════════════════════════════════ */
-.footer-grid   { display: grid; grid-template-columns: 1.6fr 1fr 1.4fr; }
+.footer-grid   { display: grid; grid-template-columns: 1fr 1fr; }
 .product-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
 .product-gallery {
   background: #0a0907;
@@ -378,7 +378,7 @@ button { font-family: inherit; }
   }
 
   /* ─ Footer ─ */
-  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
 
   /* ─ Product / Contact ─ */
   .product-layout { grid-template-columns: 1fr; min-height: auto; }

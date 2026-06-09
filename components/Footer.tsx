@@ -1,20 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [signed, setSigned] = useState(false);
-
-  function handleSignup(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSigned(true);
-    setEmail("");
-    setTimeout(() => setSigned(false), 3000);
-  }
-
   return (
     <footer
       style={{
@@ -35,72 +23,7 @@ export default function Footer() {
           alignItems: "start",
         }}
       >
-        {/* ── Newsletter ── */}
-        <div>
-          <h3
-            style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: "clamp(26px, 2.5vw, 34px)",
-              fontWeight: 400,
-              color: "#f0ece4",
-              marginBottom: 12,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            Newsletter
-          </h3>
-          <p style={{ color: "rgba(240,236,228,0.6)", fontSize: 14, lineHeight: 1.7, marginBottom: 24, maxWidth: 300 }}>
-            Subscribe to our newsletter for new products, trends and offers.
-          </p>
-          <form onSubmit={handleSignup} style={{ display: "grid", gap: 10 }}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              required
-              style={{
-                padding: "14px 16px",
-                background: "#fff",
-                border: "none",
-                outline: "none",
-                fontSize: 14,
-                color: "#1a1814",
-                fontFamily: "'Inter', sans-serif",
-                fontStyle: email ? "normal" : "italic",
-                width: "100%",
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                padding: "14px 16px",
-                background: "var(--accent, #c9a96e)",
-                border: "none",
-                color: "#fff",
-                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 10,
-                transition: "background 0.2s",
-                width: "100%",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#e8c07e")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--accent, #c9a96e)")}
-            >
-              <svg width="15" height="12" viewBox="0 0 20 16" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <rect x="1" y="1" width="18" height="14" rx="1"/>
-                <path d="M1 3l9 6 9-6"/>
-              </svg>
-              {signed ? "Subscribed ✦" : "Sign up"}
-            </button>
-          </form>
-        </div>
+
 
         {/* ── Social ── */}
         <div>

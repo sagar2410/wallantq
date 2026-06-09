@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer";
 import CollectionClient from "@/components/CollectionClient";
-import { products as staticProducts } from "@/lib/products";
 import { getSanityProducts } from "@/lib/utils/sanity";
 
 export const metadata = {
@@ -9,8 +8,7 @@ export const metadata = {
 };
 
 export default async function CollectionPage() {
-  const sanityProducts = await getSanityProducts();
-  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const products = await getSanityProducts();
 
   return (
     <>
@@ -60,9 +58,7 @@ export default async function CollectionPage() {
             marginBottom: 36,
           }}
         >
-          Sixteen
-          <br />
-          considered
+          Considered
           <br />
           <em style={{ fontStyle: "italic", color: "var(--accent)" }}>quiet</em> things.
         </h1>

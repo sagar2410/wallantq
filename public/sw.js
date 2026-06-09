@@ -24,7 +24,9 @@ self.addEventListener('fetch', (event) => {
   let url;
   try { url = new URL(req.url); } catch { return; }
 
-  if (url.hostname !== ASSET_HOST) return;
+  const isSanity = url.hostname === 'cdn.sanity.io';
+  const isLegacy = url.hostname === ASSET_HOST;
+  if (!isSanity && !isLegacy) return;
 
   const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname);
   const isVideo = /\.mp4(\?.*)?$/i.test(url.pathname);

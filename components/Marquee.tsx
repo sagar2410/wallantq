@@ -1,12 +1,13 @@
 "use client";
 
-export default function Marquee() {
-  const items = [
+export default function Marquee({ items }: { items?: string[] }) {
+  const defaultItems = [
     "Premium Handcrafted Dimensional Wood Relief",
     "Hand-painted with protective PU coat",
     "Complimentary shipping across India",
   ];
-  const doubled = [...items, ...items];
+  const activeItems = items && items.length > 0 ? items : defaultItems;
+  const doubled = [...activeItems, ...activeItems];
 
   return (
     <div

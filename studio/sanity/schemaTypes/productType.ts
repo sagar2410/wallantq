@@ -7,21 +7,21 @@ export const productType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Title Before',
       type: 'string',
-      validation: (Rule) => Rule.required(),
+      description: 'Text before the italicized word. Leave blank if the title starts directly with the italicized word (e.g., Oracle by the Window).',
     }),
     defineField({
       name: 'titleAccent',
-      title: 'Title Accent',
+      title: 'Title Accent (Italicized)',
       type: 'string',
-      description: 'Italic accent word in the title',
+      description: 'The single word in the title that should be rendered in italics (e.g., Oracle, Instinct).',
     }),
     defineField({
       name: 'titleAfter',
       title: 'Title After',
       type: 'string',
-      description: 'Text after the accent word',
+      description: 'Text after the italicized word (e.g., " by the Window"). Include a leading space if needed.',
     }),
     defineField({
       name: 'slug',
@@ -139,12 +139,12 @@ export const productType = defineType({
       type: 'string',
       options: {
         list: [
-          {title: 'Use Hostinger Legacy Subdomain (using SKU)', value: 'hostinger'},
           {title: 'Upload directly to CMS', value: 'cms'},
+          {title: 'Use Hostinger Legacy Subdomain (using SKU)', value: 'hostinger'},
         ],
         layout: 'radio',
       },
-      initialValue: 'hostinger',
+      initialValue: 'cms',
     }),
     defineField({
       name: 'productImage',
@@ -184,4 +184,22 @@ export const productType = defineType({
       hidden: ({document}) => document?.mediaSource !== 'hostinger',
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      titleAccent: 'titleAccent',
+      titleAfter: 'titleAfter',
+      sku: 'sku',
+      media: 'productImage',
+    },
+    prepare(selection) {
+      const {title, titleAccent, titleAfter, sku, media} = selection;
+      const fullTitle = `${title || ''} ${titleAccent || ''} ${titleAfter || ''}`.replace(/\s+/g, ' ').trim();
+      return {
+        title: fullTitle || 'Untitled Product',
+        subtitle: sku ? `SKU: ${sku}` : '',
+        media: media,
+      };
+    },
+  },
 })

@@ -5,35 +5,42 @@ import HeroVideo from "@/components/HeroVideo";
 import EnquireButton from "@/components/EnquireButton";
 import TrustBadges from "@/components/TrustBadges";
 import Reveal from "@/components/Reveal";
-import { products as staticProducts } from "@/lib/products";
 import { getProductImageUrl, getProductVideoUrl } from "@/lib/utils/drive";
 import { getSanityProducts } from "@/lib/utils/sanity";
+import { getSiteSettings } from "@/lib/utils/siteSettings";
+import type { Product } from "@/lib/products";
 
 export default async function HomePage() {
-  const sanityProducts = await getSanityProducts();
-  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const products = await getSanityProducts();
+  const siteSettings = await getSiteSettings();
 
-  // Curate featured items
-  let featured = products.filter((p) => p.featured);
-  if (featured.length === 0) {
-    featured = [
-      products.find((p) => p.slug === "wanxmf05")!,
-      products.find((p) => p.slug === "wmnxmf22")!,
-      products.find((p) => p.slug === "wmnxmf27_sq")!,
-      products.find((p) => p.slug === "wmnxmf39")!,
-      products.find((p) => p.slug === "winxmf01")!,
-    ].filter(Boolean);
+  const getProductSafe = (slug: string) => {
+    return products.find((p) => p.slug === slug);
+  };
+
+  // Curate featured items (must have at least 5 to prevent crash in grid lookup)
+  let featured = siteSettings.featuredProducts || [];
+  if (featured.length < 5) {
+    const featuredFlagProducts = products.filter((p) => p.featured && !featured.some((f) => f.slug === p.slug));
+    featured = [...featured, ...featuredFlagProducts];
   }
+  if (featured.length < 5) {
+    const backupSlugs = ["wanxmf05", "wmnxmf22", "wmnxmf27_sq", "wmnxmf39", "winxmf01"];
+    const backupProducts = backupSlugs
+      .map((slug) => getProductSafe(slug))
+      .filter((p): p is Product => !!p && !featured.some((f) => f.slug === p.slug));
+    featured = [...featured, ...backupProducts];
+  }
+  featured = featured.slice(0, 5);
 
-  // Curate new arrivals
+  // Curate new arrivals (must have at least 4 for full grid display)
   let newArrivals = products.filter((p) => p.newArrival);
-  if (newArrivals.length === 0) {
-    newArrivals = [
-      products.find((p) => p.slug === "wmnxmf27")!,
-      products.find((p) => p.slug === "wmnxmf16")!,
-      products.find((p) => p.slug === "wmnxmf02")!,
-      products.find((p) => p.slug === "wmnxmf05")!,
-    ].filter(Boolean);
+  if (newArrivals.length < 4) {
+    const backupSlugs = ["wmnxmf27", "wmnxmf16", "wmnxmf02", "wmnxmf05"];
+    const backupProducts = backupSlugs
+      .map((slug) => getProductSafe(slug))
+      .filter((p): p is Product => !!p && !newArrivals.some((na) => na.slug === p.slug));
+    newArrivals = [...newArrivals, ...backupProducts].slice(0, 4);
   }
 
   const heroVideos = products.map((p) => ({
@@ -78,28 +85,7 @@ export default async function HomePage() {
           }}
         />
 
-        {/* Top kicker */}
-        <div
-          className="hero-kicker"
-          style={{
-            position: "absolute",
-            top: "clamp(90px, 12vh, 150px)",
-            left: "var(--pad)",
-            zIndex: 2,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-              fontSize: 10,
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: "var(--accent)",
-            }}
-          >
-            Atelier Nº 01 · New Collection 2026
-          </span>
-        </div>
+
 
         {/* Hero text */}
         <div
@@ -123,11 +109,11 @@ export default async function HomePage() {
                 textShadow: "0 2px 32px rgba(0,0,0,0.7)",
               }}
             >
-              Objects of
+              {siteSettings.heroHeadlinePre.trim()}
               <br />
-              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>quiet</em>
+              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{siteSettings.heroHeadlineAccent.trim()}</em>
               <br />
-              conviction.
+              {siteSettings.heroHeadlinePost.trim()}
             </h1>
             <div className="hero-cta">
               <Link href="/collection" className="btn-primary">
@@ -149,7 +135,7 @@ export default async function HomePage() {
                 textShadow: "0 1px 8px rgba(0,0,0,0.5)",
               }}
             >
-              Premium handcrafted dimensional wood relief art — each piece is individually hand-finished with a protective PU coat and curated to bring a lasting, quiet presence to refined spaces.
+              {siteSettings.heroDescription}
             </p>
             <div
               style={{
@@ -160,7 +146,7 @@ export default async function HomePage() {
                 color: "rgba(240,236,228,0.55)",
               }}
             >
-              15 ready designs · custom wall art available
+              {siteSettings.heroSubNote}
             </div>
           </div>
         </div>
@@ -201,7 +187,7 @@ export default async function HomePage() {
       </section>
 
       {/* ══ TRUST BADGES ══ */}
-      <TrustBadges />
+      <TrustBadges items={siteSettings.trustBadges} />
 
       {/* ══ FEATURED COLLECTION ══ */}
       <section style={{ background: "var(--bg)", padding: "clamp(64px, 10vw, 160px) 0" }}>
@@ -231,7 +217,7 @@ export default async function HomePage() {
                       color: "var(--accent)",
                     }}
                   >
-                    Featured · Selection Nº 04
+                    {siteSettings.featuredEyebrow}
                   </span>
                 </div>
                 <h2
@@ -244,10 +230,15 @@ export default async function HomePage() {
                     color: "var(--fg)",
                   }}
                 >
-                  A collection curated
-                  <br />
-                  for those who{" "}
-                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>notice</em>.
+                  {siteSettings.featuredHeadlinePre.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                  {" "}
+                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{siteSettings.featuredHeadlineAccent.trim()}</em>
+                  {siteSettings.featuredHeadlinePost.trim()}
                 </h2>
               </div>
               <Link href="/collection" className="btn-ghost">
@@ -310,7 +301,7 @@ export default async function HomePage() {
                       color: "var(--accent)",
                     }}
                   >
-                    Just in · New arrivals
+                    {siteSettings.newArrivalsEyebrow}
                   </span>
                 </div>
                 <h2
@@ -323,10 +314,15 @@ export default async function HomePage() {
                     color: "var(--fg)",
                   }}
                 >
-                  Recently added
-                  <br />
-                  to the{" "}
-                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>catalogue</em>.
+                  {siteSettings.newArrivalsHeadlinePre.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                  {" "}
+                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{siteSettings.newArrivalsHeadlineAccent.trim()}</em>
+                  {siteSettings.newArrivalsHeadlinePost.trim()}
                 </h2>
               </div>
               <Link href="/collection" className="btn-ghost">
@@ -377,7 +373,7 @@ export default async function HomePage() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={getProductImageUrl(products.find((p) => p.slug === "wanxmf05")!)}
+            src={getProductImageUrl(getProductSafe("wanxmf05"))}
             alt="Dune Sovereigns"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -405,7 +401,7 @@ export default async function HomePage() {
                   color: "var(--accent)",
                 }}
               >
-                Atelier · Our philosophy
+                {siteSettings.philosophyEyebrow}
               </span>
             </div>
             <h3
@@ -419,19 +415,36 @@ export default async function HomePage() {
                 marginBottom: 28,
               }}
             >
-              We don't create{" "}
-              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>décor</em>.
-              <br />We create presence.
+              {siteSettings.philosophyHeadingPre.split("\n").map((line, idx) => (
+                <span key={idx}>
+                  {idx > 0 && <br />}
+                  {line}
+                </span>
+              ))}
+              {" "}
+              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{siteSettings.philosophyHeadingAccent.trim()}</em>
+              {siteSettings.philosophyHeadingPost.startsWith(".") || siteSettings.philosophyHeadingPost.startsWith(",") ? "" : " "}
+              {siteSettings.philosophyHeadingPost.split("\n").map((line, idx) => (
+                <span key={idx}>
+                  {idx > 0 && <br />}
+                  {line}
+                </span>
+              ))}
             </h3>
-            <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.75, maxWidth: 480, marginBottom: 20 }}>
-              Wallantq is a collection of considered moments — the rhythm, depth, and quiet power a wall can hold. Each piece is crafted layer by layer, shaped by intention, to become a part of a space that speaks.
-            </p>
-            <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.75, maxWidth: 480, marginBottom: 20 }}>
-              We don't follow trends; we follow meaning.
-            </p>
-            <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.75, maxWidth: 480, marginBottom: 40 }}>
-              There is no mass production, no shortcuts, just craftsmanship, patience, and purpose. If a piece connects with you, it belongs in your story.
-            </p>
+            {siteSettings.philosophyBody.map((paragraph, index) => (
+              <p
+                key={index}
+                style={{
+                  color: "var(--fg-2)",
+                  fontSize: 16,
+                  lineHeight: 1.75,
+                  maxWidth: 480,
+                  marginBottom: index === siteSettings.philosophyBody.length - 1 ? 40 : 20
+                }}
+              >
+                {paragraph}
+              </p>
+            ))}
             <div
               style={{
                 display: "flex",
@@ -444,7 +457,7 @@ export default async function HomePage() {
               }}
             >
               <span style={{ width: 36, height: 1, background: "var(--fg-2)", display: "block", flexShrink: 0 }} />
-              — the founder
+              {siteSettings.philosophyAttribution}
             </div>
           </Reveal>
         </div>
@@ -453,12 +466,7 @@ export default async function HomePage() {
       {/* ══ VALUES — 4 columns ══ */}
       <section style={{ background: "var(--bg)", borderTop: "1px solid var(--line)" }}>
         <div className="grid-4 values-grid" style={{ maxWidth: "var(--maxw)", margin: "0 auto" }}>
-          {[
-            { num: "Nº 01", title: "Dimensional Wood Relief", body: "Each piece is built from individually hand-cut and layered wood elements, hand-painted with a protective PU coat. No shortcuts, no mass production." },
-            { num: "Nº 02", title: "Private enquiry", body: "No cart, no checkout. Write to us on WhatsApp or email and receive a personal reply within 24 hours." },
-            { num: "Nº 03", title: "Your vision, our creation", body: "Every design is fully customizable — size, palette, finish — crafted to fit your space and your story." },
-            { num: "Nº 04", title: "7-day guarantee", body: "Not satisfied? Return within 7 days, no questions asked. Every piece ships with a hand-written card and care instructions." },
-          ].map((v, i) => (
+          {siteSettings.values.map((v, i) => (
             <Reveal key={i} delay={i * 100} direction="up">
               <div
                 style={{
@@ -511,7 +519,7 @@ export default async function HomePage() {
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={getProductImageUrl(products.find((p) => p.slug === "wmnxmf05")!)}
+            src={getProductImageUrl(getProductSafe("wmnxmf05"))}
             alt=""
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.07 }}
           />
@@ -538,7 +546,7 @@ export default async function HomePage() {
                       color: "var(--accent)",
                     }}
                   >
-                    Bespoke · Personalised designs
+                    {siteSettings.bespokeEyebrow}
                   </span>
                 </div>
                 <h2
@@ -551,12 +559,21 @@ export default async function HomePage() {
                     color: "var(--fg)",
                   }}
                 >
-                  Your wall.
-                  <br />
-                  Your{" "}
-                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>vision</em>.
-                  <br />
-                  Our craft.
+                  {siteSettings.bespokeHeadlinePre.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                  {" "}
+                  <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{siteSettings.bespokeHeadlineAccent.trim()}</em>
+                  {" "}
+                  {siteSettings.bespokeHeadlinePost.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
                 </h2>
               </div>
             </Reveal>
@@ -564,10 +581,10 @@ export default async function HomePage() {
             <Reveal direction="right" delay={150}>
               <div>
                 <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.8, marginBottom: 16 }}>
-                  We create fully personalised wall art — commissioned to fit your space, your palette, and your story. Whether it's a mandala for a meditation room, a family heritage piece, or an abstract for a corporate lobby, every design begins with a conversation.
+                  {siteSettings.bespokeBody1}
                 </p>
                 <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.8, marginBottom: 40 }}>
-                  No templates. No stock. Just the piece that belongs in your home.
+                  {siteSettings.bespokeBody2}
                 </p>
                 <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
                   <Link href="/contact" className="btn-primary">
@@ -588,7 +605,7 @@ export default async function HomePage() {
         <section style={{ position: "relative", height: "60vh", minHeight: 360, overflow: "hidden" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={getProductImageUrl(products.find((p) => p.slug === "winxmf02")!)}
+            src={getProductImageUrl(getProductSafe("winxmf02"))}
             alt="Wallantq editorial"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -617,10 +634,16 @@ export default async function HomePage() {
                 textShadow: "0 2px 20px rgba(0,0,0,0.5)",
               }}
             >
-              "The most important things in a room
-              <br />
-              are the ones that make you{" "}
-              <em style={{ color: "var(--accent)" }}>pause</em>."
+              "
+              {siteSettings.editorialQuotePre.split("\n").map((line, idx) => (
+                <span key={idx}>
+                  {idx > 0 && <br />}
+                  {line}
+                </span>
+              ))}
+              {" "}
+              <em style={{ color: "var(--accent)" }}>{siteSettings.editorialQuoteAccent.trim()}</em>
+              ."
             </blockquote>
           </div>
         </section>
@@ -646,7 +669,7 @@ export default async function HomePage() {
                       color: "var(--accent)",
                     }}
                   >
-                    A private line
+                    {siteSettings.ctaEyebrow}
                   </span>
                 </div>
                 <h3
@@ -659,16 +682,26 @@ export default async function HomePage() {
                     color: "var(--fg)",
                   }}
                 >
-                  Looking for something
-                  <br />
-                  in particular?
+                  {siteSettings.ctaHeadingPre.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                  {siteSettings.ctaHeadingPost ? "\n" : ""}
+                  {siteSettings.ctaHeadingPost.split("\n").map((line, idx) => (
+                    <span key={idx}>
+                      {idx > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
                 </h3>
               </div>
             </Reveal>
             <Reveal direction="right" delay={150}>
               <div>
                 <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.75, maxWidth: 440, marginBottom: 36 }}>
-                  Describe what you're searching for — a particular tone, a size for a narrow wall, a piece for a quiet hallway — and we'll return with hand-picked suggestions within 24 hours.
+                  {siteSettings.ctaBody}
                 </p>
                 <EnquireButton label="Open private enquiry" />
               </div>

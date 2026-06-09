@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import TopBar from "@/components/TopBar";
 import Marquee from "@/components/Marquee";
+import { getSiteSettings } from "@/lib/utils/siteSettings";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const cormorant = Cormorant_Garamond({
@@ -53,13 +54,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSiteSettings();
+
   return (
     <div className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
       <ServiceWorkerRegistration />
       {/* Marquee — fixed at very top, visible on all screen sizes */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>
-        <Marquee />
+        <Marquee items={settings.marqueeItems} />
       </div>
       {/* TopBar — fixed below marquee */}
       <TopBar />

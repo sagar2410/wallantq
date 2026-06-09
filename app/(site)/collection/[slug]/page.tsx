@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { products as staticProducts } from "@/lib/products";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
@@ -9,27 +8,27 @@ import { getProductImageUrl, getProductVideoUrl, getProductPngUrl } from "@/lib/
 import { getSanityProducts } from "@/lib/utils/sanity";
 
 export async function generateStaticParams() {
-  const sanityProducts = await getSanityProducts();
-  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const products = await getSanityProducts();
+  if (products.length === 0) {
+    return [{ slug: "placeholder" }];
+  }
   return products.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sanityProducts = await getSanityProducts();
-  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const products = await getSanityProducts();
   const product = products.find((p) => p.slug === slug);
   if (!product) return {};
   return {
-    title: `${product.title}${product.titleAccent || ""}${product.titleAfter || ""} — Wallantq`,
+    title: `${[product.title, product.titleAccent, product.titleAfter].filter((s): s is string => !!s).map(s => s.trim()).join(" ")} — Wallantq`,
     description: product.deck,
   };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const sanityProducts = await getSanityProducts();
-  const products = sanityProducts.length > 0 ? sanityProducts : staticProducts;
+  const products = await getSanityProducts();
   const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
@@ -39,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const videoSrc = getProductVideoUrl(product);
   // Only include valid (non-empty) image URLs — products with no driveImageId show only video
   const images = mainImage ? [mainImage] : [];
-  const productTitle = `${product.title}${product.titleAccent || ""}${product.titleAfter || ""}`;
+  const productTitle = [product.title, product.titleAccent, product.titleAfter].filter((s): s is string => !!s).map(s => s.trim()).join(" ");
 
   return (
     <>
@@ -116,11 +115,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 color: "var(--fg)",
               }}
             >
-              {product.title}
-              <em style={{ fontStyle: "italic", color: "var(--accent)" }}>
-                {product.titleAccent}
-              </em>
-              {product.titleAfter}
+              {product.title && `${product.title.trim()} `}
+              {product.titleAccent && (
+                <em style={{ fontStyle: "italic", color: "var(--accent)" }}>
+                  {product.titleAccent.trim()}
+                </em>
+              )}
+              {product.titleAfter && ` ${product.titleAfter.trim()}`}
             </h1>
           </div>
 

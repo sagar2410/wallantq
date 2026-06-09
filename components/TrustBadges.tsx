@@ -44,7 +44,14 @@ const badges = [
   },
 ];
 
-export default function TrustBadges() {
+export default function TrustBadges({ items }: { items?: { title: string; sub: string }[] }) {
+  const activeBadges = (items && items.length > 0)
+    ? items.map((item, idx) => ({
+        ...item,
+        icon: badges[idx]?.icon || badges[0].icon
+      }))
+    : badges;
+
   return (
     <section
       style={{
@@ -54,7 +61,7 @@ export default function TrustBadges() {
       }}
     >
       <div className="trust-grid" style={{ maxWidth: "var(--maxw)", margin: "0 auto" }}>
-        {badges.map((b, i) => (
+        {activeBadges.map((b, i) => (
           <Reveal key={b.title} delay={i * 80} direction="up">
             <div
               className="trust-cell"
@@ -63,7 +70,7 @@ export default function TrustBadges() {
                 alignItems: "center",
                 gap: 14,
                 padding: "clamp(20px, 3.5vw, 40px) clamp(16px, 3vw, 40px)",
-                borderRight: i < 3 ? "1px solid var(--line)" : undefined,
+                borderRight: i < activeBadges.length - 1 ? "1px solid var(--line)" : undefined,
                 height: "100%",
               }}
             >

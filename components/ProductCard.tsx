@@ -11,9 +11,10 @@ interface Props {
 
 export default function ProductCard({ product }: Props) {
   const [hovered, setHovered] = useState(false);
+  if (!product) return null;
   const imgSrc = getProductImageUrl(product);
   const hasImage = !!imgSrc;
-  const title = `${product.title}${product.titleAccent || ""}${product.titleAfter?.replace(".", "") || ""}`;
+  const title = [product.title?.trim(), product.titleAccent?.trim(), product.titleAfter?.trim().replace(".", "")].filter(Boolean).join(" ");
 
   return (
     <Link
@@ -134,9 +135,9 @@ export default function ProductCard({ product }: Props) {
               letterSpacing: "-0.01em",
             }}
           >
-            {product.title}
-            <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{product.titleAccent}</em>
-            {product.titleAfter?.replace(".", "")}
+            {product.title && `${product.title.trim()} `}
+            {product.titleAccent && <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{product.titleAccent.trim()}</em>}
+            {product.titleAfter && ` ${product.titleAfter.trim().replace(".", "")}`}
           </div>
           <div
             style={{

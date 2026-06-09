@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { products } from "@/lib/products";
+import { getSanityProducts } from "@/lib/utils/sanity";
+import type { Product } from "@/lib/products";
 import { getProductImageUrl } from "@/lib/utils/drive";
 
 interface Props {
@@ -12,13 +13,20 @@ interface Props {
 
 export default function SearchModal({ open, onClose }: Props) {
   const [query, setQuery] = useState("");
+  const [products, setProducts] = useState<Product[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      getSanityProducts().then(setProducts);
+    }
+  }, [open]);
 
   const results = query.trim().length > 0
     ? products.filter((p) => {
         const q = query.toLowerCase();
-        const fullTitle = `${p.title}${p.titleAccent ?? ""}${p.titleAfter ?? ""}`.toLowerCase();
+        const fullTitle = [p.title, p.titleAccent, p.titleAfter].filter((s): s is string => !!s).map(s => s.trim()).join(" ").toLowerCase();
         return (
           fullTitle.includes(q) ||
           p.category.toLowerCase().includes(q) ||
@@ -196,7 +204,7 @@ export default function SearchModal({ open, onClose }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={getProductImageUrl(p)}
-                  alt={`${p.title}${p.titleAccent ?? ""}${p.titleAfter ?? ""}`}
+                  alt={[p.title, p.titleAccent, p.titleAfter].filter((s): s is string => !!s).map(s => s.trim()).join(" ")}
                   loading="lazy"
                   decoding="async"
                   style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
@@ -225,9 +233,9 @@ export default function SearchModal({ open, onClose }: Props) {
                     lineHeight: 1.2,
                   }}
                 >
-                  {p.title}
-                  {p.titleAccent && <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{p.titleAccent}</em>}
-                  {p.titleAfter}
+                  {p.title && `${p.title.trim()} `}
+                  {p.titleAccent && <em style={{ fontStyle: "italic", color: "var(--accent)" }}>{p.titleAccent.trim()}</em>}
+                  {p.titleAfter && ` ${p.titleAfter.trim()}`}
                 </div>
               </div>
             </div>

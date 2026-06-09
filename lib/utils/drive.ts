@@ -8,7 +8,8 @@ const ASSET_VERSION = "2026-05-07-1";
  * Files are stored as {SKU}.avif in the AVIF folder (compressed, ~600 KB vs 37 MB PNG).
  * Run compress-images.sh and upload output to the R2 bucket.
  */
-export function getProductImageUrl(product: Product): string {
+export function getProductImageUrl(product?: Product): string {
+  if (!product) return "";
   if (product.mediaSource === "cms" && product.sanityImageUrl) {
     return product.sanityImageUrl;
   }
@@ -18,7 +19,8 @@ export function getProductImageUrl(product: Product): string {
   return `${ASSET_BASE}/wallantq-avif/${product.sku}.avif?v=${ASSET_VERSION}`;
 }
 
-export function getProductPngUrl(product: Product): string {
+export function getProductPngUrl(product?: Product): string {
+  if (!product) return "";
   if (product.mediaSource === "cms" && product.sanityImageUrl) {
     return product.sanityImageUrl;
   }
@@ -29,7 +31,8 @@ export function getProductPngUrl(product: Product): string {
  * Returns the Cloudflare R2-hosted video URL for a product, or undefined if none.
  * Files are stored as {SKU}.mp4 in the Without Logo folder.
  */
-export function getProductVideoUrl(product: Product): string | undefined {
+export function getProductVideoUrl(product?: Product): string | undefined {
+  if (!product) return undefined;
   if (product.mediaSource === "cms" && product.sanityVideoUrl) {
     return product.sanityVideoUrl;
   }
