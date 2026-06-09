@@ -56,6 +56,11 @@ export interface SiteSettings {
 
   // Trust Badges
   trustBadges: { title: string; sub: string }[]
+
+  // About Page Images
+  aboutHeroImageUrl?: string
+  aboutMissionImageUrl?: string
+  aboutStudioImageUrl?: string
 }
 
 /** Hardcoded defaults — the site looks exactly as before if Sanity has no data */
@@ -141,6 +146,10 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
     { title: 'Your Vision, Our Creation', sub: 'Fully customizable' },
     { title: '100% Secure', sub: 'Private & secure enquiry' },
   ],
+
+  aboutHeroImageUrl: 'https://drive.google.com/thumbnail?id=1lflDkjhiKbgMX0bUbNBytnzKZvGoZXvL&sz=w2000-h2000',
+  aboutMissionImageUrl: 'https://drive.google.com/thumbnail?id=1aTXvDaA1RipD3zSM2cdNxkq6H125bT8T&sz=w2000-h2000',
+  aboutStudioImageUrl: 'https://drive.google.com/thumbnail?id=1Md2WXXnw3l1RuH4DC1jQkgMQ-OqoV6BJ&sz=w2000-h2000',
 }
 
 const QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
@@ -189,7 +198,10 @@ const QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
   bespokeBody1, bespokeBody2,
   editorialQuotePre, editorialQuoteAccent,
   ctaEyebrow, ctaHeadingPre, ctaHeadingPost, ctaBody,
-  trustBadges[] { title, sub }
+  trustBadges[] { title, sub },
+  "aboutHeroImageUrl": aboutHeroImage.asset->url,
+  "aboutMissionImageUrl": aboutMissionImage.asset->url,
+  "aboutStudioImageUrl": aboutStudioImage.asset->url
 }`
 
 /**
@@ -240,6 +252,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       ctaHeadingPost:            data.ctaHeadingPost            || d.ctaHeadingPost,
       ctaBody:                   data.ctaBody                   || d.ctaBody,
       trustBadges:               (data.trustBadges?.length)     ? data.trustBadges     : d.trustBadges,
+      aboutHeroImageUrl:         data.aboutHeroImageUrl         || d.aboutHeroImageUrl,
+      aboutMissionImageUrl:      data.aboutMissionImageUrl      || d.aboutMissionImageUrl,
+      aboutStudioImageUrl:       data.aboutStudioImageUrl       || d.aboutStudioImageUrl,
     }
   } catch (err) {
     console.error('[getSiteSettings] Failed to fetch from Sanity, using defaults:', err)

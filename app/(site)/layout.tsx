@@ -59,6 +59,9 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
 
   return (
     <div className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <link rel="preconnect" href="https://assets.wallantq.com" />
+      <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://drive.google.com" />
       <ServiceWorkerRegistration />
       {/* Marquee — fixed at very top, visible on all screen sizes */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 60 }}>

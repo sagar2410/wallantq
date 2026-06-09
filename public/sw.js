@@ -16,7 +16,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Cache-first for all Cloudflare R2 assets
+// Cache-first for all assets (Sanity, R2, and Google Drive thumbnails)
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -26,9 +26,10 @@ self.addEventListener('fetch', (event) => {
 
   const isSanity = url.hostname === 'cdn.sanity.io';
   const isLegacy = url.hostname === ASSET_HOST;
-  if (!isSanity && !isLegacy) return;
+  const isDrive = url.hostname === 'drive.google.com' && url.pathname === '/thumbnail';
+  if (!isSanity && !isLegacy && !isDrive) return;
 
-  const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname);
+  const isImage = /\.(png|jpe?g|webp|avif)(\?.*)?$/i.test(url.pathname) || isDrive;
   const isVideo = /\.mp4(\?.*)?$/i.test(url.pathname);
   if (!isImage && !isVideo) return;
 
@@ -41,7 +42,8 @@ self.addEventListener('fetch', (event) => {
       if (cached) return cached;
       try {
         const response = await fetch(req);
-        if (response.ok && response.status === 200) {
+        const isOpaque = response.type === 'opaque';
+        if ((response.ok && response.status === 200) || isOpaque) {
           cache.put(req, response.clone());
         }
         return response;

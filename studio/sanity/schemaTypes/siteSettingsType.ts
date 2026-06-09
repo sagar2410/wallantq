@@ -15,6 +15,7 @@ export const siteSettingsType = defineType({
     { name: 'editorial',  title: 'Editorial Quote' },
     { name: 'ctaBand',    title: 'CTA Band' },
     { name: 'trustBadges',title: 'Trust Badges' },
+    { name: 'aboutPage',  title: 'About Page' },
   ],
   fields: [
 
@@ -387,6 +388,29 @@ export const siteSettingsType = defineType({
         { title: '100% Secure',               sub: 'Private & secure enquiry' },
       ],
       validation: (R) => R.required().min(1).max(4),
+    }),
+
+    // ── ABOUT PAGE IMAGES ────────────────────────────────────────────────────
+    defineField({
+      name: 'aboutHeroImage',
+      title: 'About Us — Hero Image',
+      type: 'image',
+      group: 'aboutPage',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'aboutMissionImage',
+      title: 'About Us — Mission Image',
+      type: 'image',
+      group: 'aboutPage',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'aboutStudioImage',
+      title: 'About Us — Studio Image',
+      type: 'image',
+      group: 'aboutPage',
+      options: { hotspot: true },
     }),
   ],
 })

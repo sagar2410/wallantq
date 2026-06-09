@@ -120,6 +120,11 @@ const defaults = {
     { _key: 'b3', title: 'Your Vision, Our Creation', sub: 'Fully customizable' },
     { _key: 'b4', title: '100% Secure',               sub: 'Private & secure enquiry' },
   ],
+
+  // About page images (will be uploaded by client in Studio)
+  aboutHeroImage: null,
+  aboutMissionImage: null,
+  aboutStudioImage: null,
 }
 
 async function seed() {

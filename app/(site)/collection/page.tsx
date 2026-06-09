@@ -138,7 +138,9 @@ export default async function CollectionPage() {
               Our studio accepts a small number of private commissions each season. Describe what you imagine, and we'll return with suggestions and an honest timeline.
             </p>
             <a
-              href="mailto:info@wallantq.com?subject=Commission Enquiry"
+              href={`https://wa.me/916353726302?text=${encodeURIComponent("Hello Wallantq — I'd like to enquire about starting a private commission.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-ghost"
             >
               <span>Start a commission</span>

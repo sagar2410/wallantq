@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import EnquireButton from "@/components/EnquireButton";
+import { getSiteSettings } from "@/lib/utils/siteSettings";
 
 export const metadata = {
   title: "About Us — Wallantq",
@@ -8,7 +9,8 @@ export const metadata = {
     "Wallantq Gallery Private Limited — a private atelier for heirloom wall art, curated and shipped from our studio in Surat, India.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const settings = await getSiteSettings();
   return (
     <>
       {/* ── Hero ── */}
@@ -24,7 +26,7 @@ export default function AboutPage() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://drive.google.com/thumbnail?id=1lflDkjhiKbgMX0bUbNBytnzKZvGoZXvL&sz=w2000-h2000"
+          src={settings.aboutHeroImageUrl}
           alt="Wallantq atelier"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.4 }}
         />
@@ -88,7 +90,7 @@ export default function AboutPage() {
           style={{
             gap: "clamp(48px, 8vw, 120px)",
             padding: "clamp(72px, 10vw, 140px) var(--pad)",
-            alignItems: "start",
+            alignItems: "center",
           }}
         >
           <div>
@@ -137,14 +139,14 @@ export default function AboutPage() {
           <div
             style={{
               position: "relative",
-              aspectRatio: "3/4",
+              aspectRatio: "1/1",
               overflow: "hidden",
               background: "var(--stone)",
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://drive.google.com/thumbnail?id=1aTXvDaA1RipD3zSM2cdNxkq6H125bT8T&sz=w2000-h2000"
+              src={settings.aboutMissionImageUrl}
               alt="Wallantq studio"
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -308,7 +310,7 @@ export default function AboutPage() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://drive.google.com/thumbnail?id=1Md2WXXnw3l1RuH4DC1jQkgMQ-OqoV6BJ&sz=w2000-h2000"
+              src={settings.aboutStudioImageUrl}
               alt="Wallantq gallery"
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
             />
