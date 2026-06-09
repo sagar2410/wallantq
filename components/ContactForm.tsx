@@ -4,7 +4,11 @@ import { useState } from "react";
 
 type Status = "idle" | "sent";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  studioPhone?: string;
+}
+
+export default function ContactForm({ studioPhone = "+91 63537 26302" }: ContactFormProps) {
   const [name, setName]       = useState("");
   const [email, setEmail]     = useState("");
   const [phone, setPhone]     = useState("");
@@ -23,7 +27,8 @@ export default function ContactForm() {
       `Message: ${message}`,
     ].filter((l): l is string => l !== null).join("\n");
 
-    window.open(`https://wa.me/916353726302?text=${encodeURIComponent(lines)}`, "_blank");
+    const whatsappNumber = studioPhone.replace(/\D/g, "");
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines)}`, "_blank");
     setStatus("sent");
   }
 

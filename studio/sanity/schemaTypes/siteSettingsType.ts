@@ -16,6 +16,7 @@ export const siteSettingsType = defineType({
     { name: 'ctaBand',    title: 'CTA Band' },
     { name: 'trustBadges',title: 'Trust Badges' },
     { name: 'aboutPage',  title: 'About Page' },
+    { name: 'contact',    title: 'Contact Settings' },
   ],
   fields: [
 
@@ -25,14 +26,14 @@ export const siteSettingsType = defineType({
       title: 'Marquee Messages',
       type: 'array',
       group: 'marquee',
-      description: 'Scrolling messages in the gold ticker bar at the top. Min 1, max 8.',
-      of: [{ type: 'string' }],
+      description: 'Scrolling messages in the gold ticker bar at the top. Min 3, max unlimited.',
+      of: [{ type: 'string', validation: (R) => R.required().min(3) }],
       initialValue: [
         'Premium Handcrafted Dimensional Wood Relief',
         'Hand-painted with protective PU coat',
         'Complimentary shipping across India',
       ],
-      validation: (R) => R.required().min(1).max(8),
+      validation: (R) => R.required().min(3),
     }),
 
     // ── HERO ─────────────────────────────────────────────────────────────────
@@ -411,6 +412,24 @@ export const siteSettingsType = defineType({
       type: 'image',
       group: 'aboutPage',
       options: { hotspot: true },
+    }),
+    // ── CONTACT ──────────────────────────────────────────────────────────────
+    defineField({
+      name: 'contactEmail',
+      title: 'Contact Email',
+      type: 'string',
+      group: 'contact',
+      placeholder: 'info@wallantq.com',
+      initialValue: 'info@wallantq.com',
+      validation: (R) => R.email(),
+    }),
+    defineField({
+      name: 'contactPhone',
+      title: 'Contact Phone / WhatsApp (with country code, e.g. +91 63537 26302)',
+      type: 'string',
+      group: 'contact',
+      placeholder: '+91 63537 26302',
+      initialValue: '+91 63537 26302',
     }),
   ],
 })

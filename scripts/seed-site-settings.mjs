@@ -125,6 +125,10 @@ const defaults = {
   aboutHeroImage: null,
   aboutMissionImage: null,
   aboutStudioImage: null,
+
+  // Contact settings
+  contactEmail: 'info@wallantq.com',
+  contactPhone: '+91 63537 26302',
 }
 
 async function seed() {

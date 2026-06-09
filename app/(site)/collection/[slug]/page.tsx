@@ -6,6 +6,7 @@ import EnquireButton from "@/components/EnquireButton";
 import Link from "next/link";
 import { getProductImageUrl, getProductVideoUrl, getProductPngUrl } from "@/lib/utils/drive";
 import { getSanityProducts } from "@/lib/utils/sanity";
+import { getSiteSettings } from "@/lib/utils/siteSettings";
 
 export async function generateStaticParams() {
   const products = await getSanityProducts();
@@ -29,6 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const products = await getSanityProducts();
+  const siteSettings = await getSiteSettings();
+  const phone = siteSettings.contactPhone;
+  const email = siteSettings.contactEmail;
+  const whatsappNumber = phone.replace(/\D/g, "");
   const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
@@ -250,9 +255,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 productImage={mainImage}
                 productSlug={product.slug}
                 label="Enquire about this piece"
+                studioPhone={phone}
               />
               <a
-                href={`https://wa.me/916353726302?text=${encodeURIComponent(`Hi, I am interested in ${productTitle} SKU ${product.sku}. Please share price and availability.`)}`}
+                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hi, I am interested in ${productTitle} SKU ${product.sku}. Please share price and availability.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -457,7 +463,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <Footer />
+      <Footer email={email} phone={phone} />
     </>
   );
 }

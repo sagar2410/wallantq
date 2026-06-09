@@ -703,14 +703,14 @@ export default async function HomePage() {
                 <p style={{ color: "var(--fg-2)", fontSize: 16, lineHeight: 1.75, maxWidth: 440, marginBottom: 36 }}>
                   {siteSettings.ctaBody}
                 </p>
-                <EnquireButton label="Open private enquiry" />
+                <EnquireButton label="Open private enquiry" studioPhone={siteSettings.contactPhone} />
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <Footer email={siteSettings.contactEmail} phone={siteSettings.contactPhone} />
     </>
   );
 }

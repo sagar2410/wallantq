@@ -61,6 +61,10 @@ export interface SiteSettings {
   aboutHeroImageUrl?: string
   aboutMissionImageUrl?: string
   aboutStudioImageUrl?: string
+
+  // Contact Settings
+  contactEmail: string
+  contactPhone: string
 }
 
 /** Hardcoded defaults — the site looks exactly as before if Sanity has no data */
@@ -150,6 +154,9 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   aboutHeroImageUrl: '',
   aboutMissionImageUrl: '',
   aboutStudioImageUrl: '',
+
+  contactEmail: 'info@wallantq.com',
+  contactPhone: '+91 63537 26302',
 }
 
 const QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
@@ -201,7 +208,9 @@ const QUERY = `*[_type == "siteSettings" && _id == "siteSettings"][0] {
   trustBadges[] { title, sub },
   "aboutHeroImageUrl": aboutHeroImage.asset->url,
   "aboutMissionImageUrl": aboutMissionImage.asset->url,
-  "aboutStudioImageUrl": aboutStudioImage.asset->url
+  "aboutStudioImageUrl": aboutStudioImage.asset->url,
+  contactEmail,
+  contactPhone
 }`
 
 /**
@@ -255,6 +264,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       aboutHeroImageUrl:         data.aboutHeroImageUrl         || d.aboutHeroImageUrl,
       aboutMissionImageUrl:      data.aboutMissionImageUrl      || d.aboutMissionImageUrl,
       aboutStudioImageUrl:       data.aboutStudioImageUrl       || d.aboutStudioImageUrl,
+      contactEmail:              data.contactEmail              || d.contactEmail,
+      contactPhone:              data.contactPhone              || d.contactPhone,
     }
   } catch (err) {
     console.error('[getSiteSettings] Failed to fetch from Sanity, using defaults:', err)

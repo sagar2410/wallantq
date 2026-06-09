@@ -2,7 +2,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer() {
+interface FooterProps {
+  email?: string;
+  phone?: string;
+}
+
+export default function Footer({ email = "info@wallantq.com", phone = "+91 63537 26302" }: FooterProps) {
   return (
     <footer
       style={{
@@ -130,7 +135,7 @@ export default function Footer() {
           {/* Contact links */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
             <a
-              href="mailto:info@wallantq.com"
+              href={`mailto:${email}`}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -148,10 +153,10 @@ export default function Footer() {
                 <rect x="1" y="1" width="18" height="14" rx="1"/>
                 <path d="M1 3l9 6 9-6"/>
               </svg>
-              info@wallantq.com
+              {email}
             </a>
             <a
-              href="tel:+916353726302"
+              href={`tel:${phone.replace(/\s+/g, "")}`}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -168,7 +173,7 @@ export default function Footer() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
-              +91 6353726302
+              {phone}
             </a>
           </div>
 

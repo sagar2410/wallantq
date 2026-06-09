@@ -2,6 +2,8 @@ import Footer from "@/components/Footer";
 import CollectionClient from "@/components/CollectionClient";
 import { getSanityProducts } from "@/lib/utils/sanity";
 
+import { getSiteSettings } from "@/lib/utils/siteSettings";
+
 export const metadata = {
   title: "Collection — Wallantq",
   description: "Every piece currently in rotation at our studio.",
@@ -9,6 +11,10 @@ export const metadata = {
 
 export default async function CollectionPage() {
   const products = await getSanityProducts();
+  const siteSettings = await getSiteSettings();
+  const phone = siteSettings.contactPhone;
+  const email = siteSettings.contactEmail;
+  const whatsappNumber = phone.replace(/\D/g, "");
 
   return (
     <>
@@ -138,7 +144,7 @@ export default async function CollectionPage() {
               Our studio accepts a small number of private commissions each season. Describe what you imagine, and we'll return with suggestions and an honest timeline.
             </p>
             <a
-              href={`https://wa.me/916353726302?text=${encodeURIComponent("Hello Wallantq — I'd like to enquire about starting a private commission.")}`}
+              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello Wallantq — I'd like to enquire about starting a private commission.")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-ghost"
@@ -150,7 +156,7 @@ export default async function CollectionPage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer email={email} phone={phone} />
     </>
   );
 }

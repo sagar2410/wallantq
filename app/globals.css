@@ -299,6 +299,8 @@ button { font-family: inherit; }
 .about-3col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
 .about-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .contact-actions { display: grid; grid-template-columns: repeat(4, 1fr); }
+.contact-actions > a { transition: background 0.2s; }
+.contact-actions > a:hover { background: rgba(201,169,110,0.05) !important; }
 
 /* ══════════════════════════════════════════
    TABLET  ≤ 1024px

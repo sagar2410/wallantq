@@ -279,7 +279,7 @@ export default async function AboutPage() {
                 { label: "Legal name", value: "Wallantq Gallery Private Limited" },
                 { label: "Founded", value: "2019, Surat, Gujarat" },
                 { label: "Studio", value: "Surat, Gujarat, India" },
-                { label: "Enquiries", value: "By appointment — write to us at info@wallantq.com" },
+                { label: "Enquiries", value: `By appointment — write to us at ${settings.contactEmail}` },
               ].map(({ label, value }) => (
                 <div key={label} style={{ display: "grid", gridTemplateColumns: "160px 1fr", gap: 16, borderBottom: "1px solid var(--line)", paddingBottom: 20 }}>
                   <span
@@ -354,12 +354,12 @@ export default async function AboutPage() {
             <Link href="/collection" className="btn-primary">
               View the collection <span style={{ fontSize: 14 }}>→</span>
             </Link>
-            <EnquireButton label="Write to us" ghost />
+            <EnquireButton label="Write to us" ghost studioPhone={settings.contactPhone} />
           </div>
         </div>
       </section>
 
-      <Footer />
+      <Footer email={settings.contactEmail} phone={settings.contactPhone} />
     </>
   );
 }

@@ -12,6 +12,7 @@ interface Props {
   productNum: string;
   productImage: string;
   productSlug?: string;
+  studioPhone?: string;
 }
 
 interface Errors {
@@ -19,7 +20,7 @@ interface Errors {
   contact?: string;
 }
 
-export default function EnquiryModal({ open, onClose, productName, productNum, productImage, productSlug }: Props) {
+export default function EnquiryModal({ open, onClose, productName, productNum, productImage, productSlug, studioPhone = "+91 63537 26302" }: Props) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [contact, setContact] = useState("");
@@ -59,7 +60,8 @@ export default function EnquiryModal({ open, onClose, productName, productNum, p
       `\n📞 Contact: ${contact}` +
       (note ? `\n\n💬 Note: ${note}` : "")
     );
-    window.open(`https://wa.me/916353726302?text=${msg}`, "_blank");
+    const whatsappNumber = studioPhone.replace(/\D/g, "");
+    window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
     onClose();
     setName(""); setCity(""); setContact(""); setNote(""); setErrors({});
   }

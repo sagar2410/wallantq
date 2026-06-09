@@ -10,6 +10,7 @@ interface Props {
   productSlug?: string;
   label?: string;
   ghost?: boolean;
+  studioPhone?: string;
 }
 
 export default function EnquireButton({
@@ -19,6 +20,7 @@ export default function EnquireButton({
   productSlug = "",
   label = "Open private enquiry",
   ghost = false,
+  studioPhone = "+91 63537 26302",
 }: Props) {
   const [open, setOpen] = useState(false);
 
@@ -39,6 +41,7 @@ export default function EnquireButton({
         productNum={productNum}
         productImage={productImage}
         productSlug={productSlug}
+        studioPhone={studioPhone}
       />
     </>
   );
