@@ -16,7 +16,6 @@ import {structure} from './sanity/structure'
 export default defineConfig({
   name: 'wallantq',
   title: 'Wallantq Studio',
-  basePath: '/admin',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
