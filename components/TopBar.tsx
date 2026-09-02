@@ -129,19 +129,6 @@ export default function TopBar() {
               }}
             >
               Wallantq
-              <span
-                style={{
-                  fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-                  fontSize: "clamp(14px, 1.2vw, 20px)",
-                  letterSpacing: "0.12em",
-                  fontWeight: 300,
-                  color: "var(--fg-2)",
-                  marginLeft: 6,
-                  fontStyle: "italic",
-                }}
-              >
-                Gallery
-              </span>
             </span>
           </Link>
 
