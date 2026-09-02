@@ -10,7 +10,7 @@ const ASSET_VERSION = "2026-05-07-1";
  */
 export function getProductImageUrl(product?: Product): string {
   if (!product) return "";
-  if (product.mediaSource === "cms" && product.sanityImageUrl) {
+  if (product.mediaSource === "cms" && product.sanityImageUrl && !product.sanityImageUrl.toLowerCase().endsWith(".avif")) {
     return product.sanityImageUrl;
   }
   if (product.imageFormat === "png") {
@@ -21,7 +21,7 @@ export function getProductImageUrl(product?: Product): string {
 
 export function getProductPngUrl(product?: Product): string {
   if (!product) return "";
-  if (product.mediaSource === "cms" && product.sanityImageUrl) {
+  if (product.mediaSource === "cms" && product.sanityImageUrl && !product.sanityImageUrl.toLowerCase().endsWith(".avif")) {
     return product.sanityImageUrl;
   }
   return `${ASSET_BASE}/PNG/${product.sku}.png?v=${ASSET_VERSION}`;
