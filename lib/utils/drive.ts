@@ -4,14 +4,22 @@ const ASSET_BASE = "https://assets.wallantq.com";
 const ASSET_VERSION = "2026-05-07-1";
 
 /**
+ * Sanity CDN negotiates the best format per browser (AVIF/WebP/original) with auto=format,
+ * so AVIF uploads still render in browsers that can't decode AVIF.
+ */
+function sanityImageSrc(url: string): string {
+  return `${url}${url.includes("?") ? "&" : "?"}auto=format`;
+}
+
+/**
  * Returns the Cloudflare R2-hosted image URL for a product.
  * Files are stored as {SKU}.avif in the AVIF folder (compressed, ~600 KB vs 37 MB PNG).
  * Run compress-images.sh and upload output to the R2 bucket.
  */
 export function getProductImageUrl(product?: Product): string {
   if (!product) return "";
-  if (product.mediaSource === "cms" && product.sanityImageUrl && !product.sanityImageUrl.toLowerCase().endsWith(".avif")) {
-    return product.sanityImageUrl;
+  if (product.mediaSource === "cms" && product.sanityImageUrl) {
+    return sanityImageSrc(product.sanityImageUrl);
   }
   if (product.imageFormat === "png") {
     return `${ASSET_BASE}/PNG/${product.sku}.png?v=${ASSET_VERSION}`;
@@ -21,8 +29,8 @@ export function getProductImageUrl(product?: Product): string {
 
 export function getProductPngUrl(product?: Product): string {
   if (!product) return "";
-  if (product.mediaSource === "cms" && product.sanityImageUrl && !product.sanityImageUrl.toLowerCase().endsWith(".avif")) {
-    return product.sanityImageUrl;
+  if (product.mediaSource === "cms" && product.sanityImageUrl) {
+    return sanityImageSrc(product.sanityImageUrl);
   }
   return `${ASSET_BASE}/PNG/${product.sku}.png?v=${ASSET_VERSION}`;
 }
