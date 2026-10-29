@@ -8,6 +8,8 @@
     "deploy": "sanity deploy"
   },
   "dependencies": {
+    "@sanity/icons": "^3.8.0",
+    "@sanity/ui": "^3.5.5",
     "@sanity/vision": "^5.30.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
