@@ -112,24 +112,13 @@ export default function TopBar() {
             }}
           >
             <Image
-              src="/assets/logo/icon.png"
-              alt="Wallantq icon"
-              width={20}
-              height={38}
-              style={{ objectFit: "contain", flexShrink: 0 }}
+              src="/assets/logo/icon-white.png"
+              alt="Wallantq"
+              width={988}
+              height={690}
+              priority
+              style={{ objectFit: "contain", flexShrink: 0, height: "clamp(40px, 3.6vw, 56px)", width: "auto" }}
             />
-            <span
-              style={{
-                fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif",
-                fontSize: "clamp(18px, 1.8vw, 28px)",
-                letterSpacing: "0.06em",
-                fontWeight: 400,
-                color: "var(--fg)",
-                whiteSpace: "nowrap",
-              }}
-            >
-              Wallantq
-            </span>
           </Link>
 
           {/* ── Right actions (desktop) ── */}
